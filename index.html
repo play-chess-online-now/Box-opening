@@ -36,7 +36,7 @@
             overflow-x: hidden;
         }
 
-        /* --- MAIN MENU --- */
+        /* --- MAIN INTERFACE --- */
         #main-menu {
             display: flex;
             flex-direction: column;
@@ -53,131 +53,154 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
         }
 
         #balance-display {
             font-size: 26px;
             font-weight: 700;
             color: #ffd700;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
         }
 
         .container {
-            padding: 15px;
+            padding: 20px;
             max-width: 1200px;
             margin: 0 auto;
             width: 100%;
         }
 
         .section-title {
-            font-size: 18px;
+            font-size: 20px;
             text-transform: uppercase;
             letter-spacing: 2px;
-            margin: 20px 0 10px 0;
+            margin: 30px 0 15px 0;
             color: var(--accent);
-            border-left: 4px solid var(--accent);
-            padding-left: 10px;
+            border-left: 5px solid var(--accent);
+            padding-left: 15px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        /* Clicking button */
-        #clicker-btn {
+        /* Mining Button */
+        #mining-btn {
             background: linear-gradient(45deg, #ffd700, #ffaa00);
             border: none;
-            padding: 8px 15px;
-            border-radius: 5px;
+            padding: 10px 20px;
+            border-radius: 8px;
             color: #000;
-            font-weight: 700;
+            font-weight: 800;
             cursor: pointer;
             font-family: 'Rajdhani', sans-serif;
             transition: 0.2s;
+            box-shadow: 0 0 15px rgba(255, 170, 0, 0.4);
         }
 
-        #clicker-btn:active {
-            transform: scale(0.95);
+        #mining-btn:active {
+            transform: scale(0.92);
         }
 
-        /* Shop Section */
+        /* Shop Grid */
         #shop-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 20px;
         }
 
-        .case-item {
+        .case-card {
             background: var(--panel);
-            border-radius: 15px;
-            padding: 20px;
+            border-radius: 20px;
+            padding: 25px;
             text-align: center;
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 2px solid rgba(255,255,255,0.1);
             cursor: pointer;
-            transition: 0.2s;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
         }
 
-        .case-item:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent);
+        .case-card:hover {
+            transform: translateY(-10px);
+            filter: brightness(1.2);
         }
 
-        .case-emoji {
-            font-size: 50px;
+        .case-card::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(255,255,255,0.05), transparent);
+            pointer-events: none;
+        }
+
+        .case-icon {
+            font-size: 60px;
             display: block;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 0 15px rgba(255,255,255,0.3));
         }
 
         .case-name {
             font-weight: 700;
-            font-size: 18px;
+            font-size: 19px;
             display: block;
+            margin-bottom: 5px;
         }
 
         .case-price {
-            color: #ffd700;
+            color: #fff;
+            background: rgba(0,0,0,0.3);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 14px;
             font-weight: 700;
+            display: inline-block;
         }
 
-        /* Inventory Section */
+        /* Inventory Grid */
         #inventory-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-            gap: 10px;
-            margin-bottom: 30px;
+            grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+            gap: 15px;
+            margin-bottom: 50px;
         }
 
-        .inv-item {
+        .inventory-slot {
             aspect-ratio: 1;
-            background: rgba(255,255,255,0.03);
-            border-radius: 12px;
+            background: rgba(0,0,0,0.5);
+            border-radius: 15px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            font-size: 30px;
+            font-size: 38px;
             border: 2px solid rgba(255,255,255,0.1);
             cursor: pointer;
             position: relative;
             transition: 0.2s;
         }
 
-        .inv-item:hover {
-            background: rgba(255,255,255,0.1);
-            border-color: #fff;
+        .inventory-slot:hover {
+            transform: scale(1.08);
+            z-index: 10;
         }
 
-        .inv-item .sell-price {
-            font-size: 10px;
+        .sell-tag {
+            font-size: 11px;
             position: absolute;
-            bottom: 5px;
+            bottom: 6px;
             color: #ffd700;
             font-weight: 700;
+            background: rgba(0,0,0,0.7);
+            padding: 2px 6px;
+            border-radius: 4px;
         }
 
-        /* --- OPENING SYSTEM --- */
+        /* --- OPENING SCREEN (FULL SCREEN) --- */
         #opening-screen {
             position: fixed;
             inset: 0;
-            background: radial-gradient(circle, #151525 0%, #050508 100%);
+            background: radial-gradient(circle at center, #1a1a2e 0%, #050508 100%);
             display: none;
             flex-direction: column;
             align-items: center;
@@ -185,362 +208,371 @@
             z-index: 2000;
         }
 
-        #big-box {
-            font-size: 180px;
+        #box-to-open {
+            font-size: 200px;
             cursor: pointer;
-            filter: drop-shadow(0 0 40px rgba(255,255,255,0.2));
+            transition: 0.3s;
+            filter: drop-shadow(0 0 50px rgba(255,255,255,0.1));
+            user-select: none;
         }
 
-        .shake {
-            animation: shakeAnim 0.15s infinite;
+        .shake-anim {
+            animation: shakeEffect 0.12s infinite;
         }
 
-        @keyframes shakeAnim {
-            0% { transform: rotate(0) translate(0,0); }
-            25% { transform: rotate(5deg) translate(5px, 5px); }
-            75% { transform: rotate(-5deg) translate(-5px, -5px); }
+        @keyframes shakeEffect {
+            0% { transform: translate(0,0); }
+            25% { transform: translate(6px, 6px) rotate(3deg); }
+            75% { transform: translate(-6px, -6px) rotate(-3deg); }
         }
 
-        .explode {
-            animation: explodeAnim 0.5s forwards;
+        .explode-anim {
+            animation: explodeEffect 0.5s forwards ease-out;
         }
 
-        @keyframes explodeAnim {
+        @keyframes explodeEffect {
             0% { transform: scale(1); opacity: 1; filter: brightness(1); }
-            100% { transform: scale(4); opacity: 0; filter: brightness(5); }
+            100% { transform: scale(5); opacity: 0; filter: brightness(10) blur(10px); }
         }
 
-        /* FULL SCREEN SPINNER */
-        #spinner-wrap {
+        /* FULL SCREEN ROULETTE */
+        #roulette-wrap {
             display: none;
             width: 100%;
             flex-direction: column;
             align-items: center;
         }
 
-        #spinner-container {
+        #roulette-container {
             position: relative;
-            width: 100%; /* Changed to full screen width */
-            height: 140px;
-            background: rgba(0,0,0,0.6);
-            border-top: 2px solid rgba(255,255,255,0.1);
-            border-bottom: 2px solid rgba(255,255,255,0.1);
-            margin: 30px 0;
+            width: 100%;
+            height: 160px;
+            background: rgba(0,0,0,0.8);
+            border-top: 3px solid rgba(255,255,255,0.1);
+            border-bottom: 3px solid rgba(255,255,255,0.1);
+            margin: 40px 0;
             overflow: hidden;
+            box-shadow: 0 0 40px rgba(0,0,0,1) inset;
         }
 
-        #spinner-track {
+        #roulette-track {
             display: flex;
             position: absolute;
             left: 0;
             height: 100%;
             align-items: center;
-            transition: transform 6s cubic-bezier(0.1, 0, 0.05, 1);
+            transition: transform 6s cubic-bezier(0.05, 0, 0.05, 1);
         }
 
-        .spinner-card {
-            min-width: 120px;
-            height: 120px;
-            margin: 0 5px;
+        .roulette-card {
+            min-width: 140px;
+            height: 140px;
+            margin: 0 6px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 50px;
-            background: rgba(255,255,255,0.05);
-            border-radius: 12px;
-            border-bottom: 4px solid transparent;
+            font-size: 65px;
+            background: rgba(20,20,30,0.9);
+            border-radius: 18px;
+            border: 3px solid transparent;
+            position: relative;
         }
 
-        #spinner-line {
+        #roulette-pointer {
             position: absolute;
             left: 50%;
             top: 0;
-            width: 4px;
+            width: 6px;
             height: 100%;
-            background: var(--accent);
-            z-index: 10;
-            box-shadow: 0 0 20px var(--accent);
+            background: #fff;
+            z-index: 100;
+            box-shadow: 0 0 25px #fff, 0 0 10px var(--accent);
             transform: translateX(-50%);
         }
 
-        #claim-area {
+        #reward-display {
             display: none;
             text-align: center;
+            animation: fadeInUp 0.5s both;
         }
 
-        #claim-btn {
-            padding: 18px 50px;
-            background: var(--accent);
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        #reward-name {
+            font-size: 45px;
+            font-weight: 900;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        #claim-button {
+            padding: 20px 60px;
+            background: #fff;
             border: none;
-            border-radius: 50px;
+            border-radius: 100px;
             color: #000;
             font-weight: 900;
-            font-size: 20px;
+            font-size: 22px;
             cursor: pointer;
-            box-shadow: 0 0 30px rgba(0,242,255,0.5);
+            box-shadow: 0 0 30px rgba(255,255,255,0.4);
             text-transform: uppercase;
+            transition: 0.3s;
+        }
+        
+        #claim-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 50px rgba(255,255,255,0.7);
         }
 
-        /* RARITY STYLE */
-        .Common { border-color: var(--Common) !important; color: var(--Common); }
-        .Rare { border-color: var(--Rare) !important; color: var(--Rare); }
-        .Epic { border-color: var(--Epic) !important; color: var(--Epic); }
-        .Legendary { border-color: var(--Legendary) !important; color: var(--Legendary); }
-        .Mythic { border-color: var(--Mythic) !important; color: var(--Mythic); }
-        .Exotic { border-color: var(--Exotic) !important; color: var(--Exotic); }
-        .Divine { border-color: var(--Divine) !important; color: var(--Divine); }
-        .Zenith { border-color: var(--Zenith) !important; color: var(--Zenith); text-shadow: 0 0 15px var(--Zenith); }
+        /* --- COLOR & NEON SYSTEM --- */
+        .Common { border-color: var(--Common) !important; color: var(--Common); box-shadow: 0 0 15px rgba(181, 189, 201, 0.2); text-shadow: 0 0 10px var(--Common); }
+        .Rare { border-color: var(--Rare) !important; color: var(--Rare); box-shadow: 0 0 20px rgba(0, 119, 255, 0.3); text-shadow: 0 0 12px var(--Rare); }
+        .Epic { border-color: var(--Epic) !important; color: var(--Epic); box-shadow: 0 0 25px rgba(162, 0, 255, 0.4); text-shadow: 0 0 15px var(--Epic); }
+        .Legendary { border-color: var(--Legendary) !important; color: var(--Legendary); box-shadow: 0 0 30px rgba(255, 170, 0, 0.5); text-shadow: 0 0 20px var(--Legendary); }
+        .Mythic { border-color: var(--Mythic) !important; color: var(--Mythic); box-shadow: 0 0 35px rgba(255, 0, 119, 0.6); text-shadow: 0 0 25px var(--Mythic); }
+        .Exotic { border-color: var(--Exotic) !important; color: var(--Exotic); box-shadow: 0 0 40px rgba(0, 255, 162, 0.7); text-shadow: 0 0 30px var(--Exotic); }
+        .Divine { border-color: var(--Divine) !important; color: var(--Divine); box-shadow: 0 0 50px rgba(255, 234, 0, 0.8); text-shadow: 0 0 35px var(--Divine); }
+        .Zenith { border-color: var(--Zenith) !important; color: var(--Zenith); box-shadow: 0 0 60px rgba(255, 60, 0, 1); text-shadow: 0 0 40px var(--Zenith); }
     </style>
 </head>
 <body>
 
 <div id="main-menu">
     <div id="top-bar">
-        <div style="font-family: 'Exo 2', sans-serif; font-weight: 900; color: var(--accent); font-size: 20px;">JEWEL SIM PRO</div>
+        <div style="font-family: 'Exo 2', sans-serif; font-weight: 900; color: var(--accent); font-size: 22px; letter-spacing: 1px;">JEWEL SIM PRO</div>
         <div id="balance-display">💎 10,000</div>
     </div>
 
     <div class="container">
         <div class="section-title">
             Case Market
-            <button id="clicker-btn" onclick="mineGems()">MINE DIAMONDS (+10)</button>
+            <button id="mining-btn" onclick="mineDiamonds()">MINE DIAMONDS (+10)</button>
         </div>
         <div id="shop-grid"></div>
 
-        <div class="section-title">Inventory (Click item to sell)</div>
+        <div class="section-title">Inventory (Click to sell)</div>
         <div id="inventory-grid"></div>
     </div>
 </div>
 
 <div id="opening-screen">
-    <div id="big-box">📦</div>
-    <div id="tap-info" style="margin-top: 30px; font-weight: 700; color: var(--accent); font-size: 22px;">CLICK THE CASE!</div>
+    <div id="box-to-open">📦</div>
+    <div id="tap-hint" style="margin-top: 40px; font-weight: 700; color: #fff; font-size: 24px; letter-spacing: 2px;">CLICK TO OPEN!</div>
     
-    <div id="spinner-wrap">
-        <div id="spinner-container">
-            <div id="spinner-line"></div>
-            <div id="spinner-track"></div>
+    <div id="roulette-wrap">
+        <div id="roulette-container">
+            <div id="roulette-pointer"></div>
+            <div id="roulette-track"></div>
         </div>
       
-        <div id="claim-area">
-            <div id="win-name" style="font-size: 35px; font-weight: 900; margin-bottom: 20px; text-transform: uppercase;">ITEM</div>
-            <button id="claim-btn" onclick="collectReward()">CLAIM AND RETURN</button>
+        <div id="reward-display">
+            <div id="reward-name">ITEM</div>
+            <button id="claim-button" onclick="finalizeCollection()">CLAIM AND RETURN</button>
         </div>
     </div>
 </div>
 
 <script>
-// --- FULL ITEM DATABASE ---
+// --- DATABASE ---
 const ITEMS = {
-    "Stick": {r:"Common", e:"🪵", p:50}, 
-    "Shoe": {r:"Common", e:"👞", p:50}, 
-    "Bone": {r:"Common", e:"🦴", p:50},
-    "Sword": {r:"Rare", e:"⚔️", p:300}, 
-    "Shield": {r:"Rare", e:"🛡️", p:300}, 
-    "Bow": {r:"Rare", e:"🏹", p:300},
-    "Orb": {r:"Epic", e:"🔮", p:1500}, 
-    "Trident": {r:"Epic", e:"🔱", p:1500}, 
-    "Axe": {r:"Epic", e:"🪓", p:1500},
-    "Crown": {r:"Legendary", e:"👑", p:10000}, 
-    "Key": {r:"Legendary", e:"🔑", p:10000},
-    "Phoenix": {r:"Mythic", e:"🐦‍🔥", p:150000}, 
-    "Void Serpent": {r:"Mythic", e:"🐍", p:300000},
-    "Black Hole": {r:"Exotic", e:"🕳️", p:900000}, 
-    "Cosmic Vortex": {r:"Exotic", e:"🌀", p:1300000},
-    "Angel Wings": {r:"Divine", e:"🪽", p:5000000}, 
-    "Holy Grail": {r:"Divine", e:"⚱️", p:15000000},
-    "Infinity Core": {r:"Zenith", e:"🌌", p:50000000}, 
-    "Godly Scepter": {r:"Zenith", e:"🔱", p:60000000}
+    "Stone": {r:"Common", e:"🪨", p:40}, "Stick": {r:"Common", e:"🪵", p:50}, "Bone": {r:"Common", e:"🦴", p:60},
+    "Iron Sword": {r:"Rare", e:"⚔️", p:350}, "Steel Shield": {r:"Rare", e:"🛡️", p:400}, "Hunting Bow": {r:"Rare", e:"🏹", p:450},
+    "Magic Orb": {r:"Epic", e:"🔮", p:1800}, "Sea Trident": {r:"Epic", e:"🔱", p:2200}, "Dark Axe": {r:"Epic", e:"🪓", p:2500},
+    "Royal Crown": {r:"Legendary", e:"👑", p:12000}, "Ancient Key": {r:"Legendary", e:"🔑", p:15000},
+    "Fire Phoenix": {r:"Mythic", e:"🐦‍🔥", p:180000}, "Void Serpent": {r:"Mythic", e:"🐍", p:350000},
+    "Black Hole": {r:"Exotic", e:"🕳️", p:1200000}, "Galaxy Vortex": {r:"Exotic", e:"🌀", p:2000000},
+    "Divine Wings": {r:"Divine", e:"🪽", p:8000000}, "Holy Grail": {r:"Divine", e:"⚱️", p:20000000},
+    "Infinity Core": {r:"Zenith", e:"🌌", p:75000000}, "God Scepter": {r:"Zenith", e:"🔱", p:100000000}
 };
 
 const CASES = {
-    "Wooden": {cost:100, e:"📦", drops:["Stick", "Shoe", "Bone", "Sword"]},
-    "Iron": {cost:500, e:"📫", drops:["Sword", "Shield", "Bow", "Orb"]},
-    "Bronze": {cost:2000, e:"🏺", drops:["Shield", "Orb", "Trident", "Axe"]},
-    "Silver": {cost:10000, e:"🎁", drops:["Orb", "Axe", "Crown", "Key"]},
-    "Gold": {cost:50000, e:"💝", drops:["Crown", "Key", "Phoenix"]},
-    "Legendary": {cost:250000, e:"🌟", drops:["Phoenix", "Void Serpent", "Black Hole"]},
-    "Mythic": {cost:1000000, e:"🔥", drops:["Void Serpent", "Black Hole", "Cosmic Vortex"]},
-    "Divine": {cost:5000000, e:"☀️", drops:["Cosmic Vortex", "Angel Wings", "Holy Grail", "Infinity Core"]},
-    "Omega": {cost:25000000, e:"🧬", drops:["Holy Grail", "Infinity Core", "Godly Scepter"]}
+    "Wooden": {cost:100, e:"📦", r:"Common", drops:["Stone", "Stick", "Bone", "Iron Sword"]},
+    "Iron": {cost:600, e:"📦", r:"Rare", drops:["Iron Sword", "Steel Shield", "Hunting Bow", "Magic Orb"]},
+    "Bronze": {cost:2500, e:"🧰", r:"Rare", drops:["Steel Shield", "Magic Orb", "Sea Trident", "Dark Axe"]},
+    "Silver": {cost:12000, e:"🧰", r:"Epic", drops:["Magic Orb", "Dark Axe", "Royal Crown", "Ancient Key"]},
+    "Gold": {cost:60000, e:"💎", r:"Legendary", drops:["Royal Crown", "Ancient Key", "Fire Phoenix"]},
+    "Legendary": {cost:300000, e:"💎", r:"Legendary", drops:["Fire Phoenix", "Void Serpent", "Black Hole"]},
+    "Mythic": {cost:1500000, e:"🏆", r:"Mythic", drops:["Void Serpent", "Black Hole", "Galaxy Vortex"]},
+    "Divine": {cost:8000000, e:"🏆", r:"Divine", drops:["Galaxy Vortex", "Divine Wings", "Holy Grail", "Infinity Core"]},
+    "Omega": {cost:40000000, e:"🏆", r:"Zenith", drops:["Holy Grail", "Infinity Core", "God Scepter"]}
 };
 
-let balance = 10000;
-let inventory = [];
-let pendingDrop = null;
+let wallet = 10000;
+let myItems = [];
+let currentDrop = null;
 
-function init() {
+function initGame() {
     const shop = document.getElementById("shop-grid");
     Object.keys(CASES).forEach(name => {
         const c = CASES[name];
-        const div = document.createElement("div");
-        div.className = "case-item";
-        div.onclick = () => buyCase(name);
-        div.innerHTML = `
-            <span class="case-emoji">${c.e}</span>
-            <span class="case-name">${name}</span>
+        const card = document.createElement("div");
+        card.className = `case-card ${c.r}`;
+        card.onclick = () => purchaseCase(name);
+        card.innerHTML = `
+            <span class="case-icon">${c.e}</span>
+            <span class="case-name">${name} Case</span>
             <span class="case-price">💎 ${c.cost.toLocaleString()}</span>
         `;
-        shop.appendChild(div);
+        shop.appendChild(card);
     });
-    loadGame();
-    updateUI();
+    loadProgress();
+    refreshHUD();
 }
 
-// Mining Function
-function mineGems() {
-    balance += 10;
-    updateUI();
-    saveGame();
+function mineDiamonds() {
+    wallet += 10;
+    refreshHUD();
+    saveProgress();
 }
 
-function buyCase(name) {
+function purchaseCase(name) {
     const c = CASES[name];
-    if (balance < c.cost) return alert("Not enough diamonds!");
+    if (wallet < c.cost) return alert("Insufficient diamonds!");
     
-    balance -= c.cost;
+    wallet -= c.cost;
     const pool = c.drops;
-    const dropName = pool[Math.floor(Math.random() * pool.length)];
-    pendingDrop = { 
-        name: dropName, 
-        ...ITEMS[dropName], 
-        id: Date.now() 
+    const dropKey = pool[Math.floor(Math.random() * pool.length)];
+    currentDrop = { 
+        name: dropKey, 
+        ...ITEMS[dropKey], 
+        uid: Date.now() + Math.random()
     };
     
     document.getElementById("main-menu").style.display = "none";
     const screen = document.getElementById("opening-screen");
     screen.style.display = "flex";
     
-    const box = document.getElementById("big-box");
+    const box = document.getElementById("box-to-open");
     box.style.display = "block";
     box.textContent = c.e;
-    box.onclick = handleBoxClick;
+    box.className = c.r; 
+    box.onclick = startBoxSequence;
     
-    document.getElementById("tap-info").style.display = "block";
-    document.getElementById("spinner-wrap").style.display = "none";
-    document.getElementById("claim-area").style.display = "none";
+    document.getElementById("tap-hint").style.display = "block";
+    document.getElementById("roulette-wrap").style.display = "none";
+    document.getElementById("reward-display").style.display = "none";
     
-    updateUI();
+    refreshHUD();
 }
 
-function handleBoxClick() {
-    const box = document.getElementById("big-box");
+function startBoxSequence() {
+    const box = document.getElementById("box-to-open");
     box.onclick = null;
-    box.classList.add("shake");
-    document.getElementById("tap-info").style.display = "none";
+    box.classList.add("shake-anim");
+    document.getElementById("tap-hint").style.display = "none";
     
     setTimeout(() => {
-        box.classList.remove("shake");
-        box.classList.add("explode");
+        box.classList.remove("shake-anim");
+        box.classList.add("explode-anim");
         setTimeout(() => {
             box.style.display = "none";
-            box.classList.remove("explode");
-            showSpinner();
+            box.classList.remove("explode-anim");
+            runRoulette();
         }, 450);
     }, 1000);
 }
 
-function showSpinner() {
-    const wrap = document.getElementById("spinner-wrap");
-    const track = document.getElementById("spinner-track");
+function runRoulette() {
+    const wrap = document.getElementById("roulette-wrap");
+    const track = document.getElementById("roulette-track");
     wrap.style.display = "flex";
     track.innerHTML = "";
     track.style.transition = "none";
     track.style.transform = "translateX(0)";
 
-    const winIdx = 30;
-    const keys = Object.keys(ITEMS);
+    const winningPosition = 35;
+    const allKeys = Object.keys(ITEMS);
     
-    // Create random items + the actual drop at index 30
-    for (let i = 0; i < 45; i++) {
-        const item = (i === winIdx) ? pendingDrop : ITEMS[keys[Math.floor(Math.random() * keys.length)]];
+    for (let i = 0; i < 50; i++) {
+        const itemData = (i === winningPosition) ? currentDrop : ITEMS[allKeys[Math.floor(Math.random() * allKeys.length)]];
         const card = document.createElement("div");
-        card.className = `spinner-card ${item.r}`;
-        card.innerHTML = item.e;
+        card.className = `roulette-card ${itemData.r}`;
+        card.innerHTML = itemData.e;
         track.appendChild(card);
     }
 
-    const cardWidth = 130; // 120px + 10px margin
-    const container = document.getElementById("spinner-container");
-    const containerWidth = container.offsetWidth;
+    const cardTotalWidth = 152; // 140px width + 12px margins
+    const containerWidth = document.getElementById("roulette-container").offsetWidth;
     
-    // Dynamic calculation for centering on any screen size
-    const centerOffset = (winIdx * cardWidth) - (containerWidth / 2) + (cardWidth / 2);
+    // Exact centering formula
+    const targetOffset = (winningPosition * cardTotalWidth) - (containerWidth / 2) + (cardTotalWidth / 2);
     
     setTimeout(() => {
-        track.style.transition = "transform 6s cubic-bezier(0.1, 0, 0.05, 1)";
-        // Add a small random shift so it doesn't land exactly in the center every time
-        const randomInnerShift = (Math.random() * 60) - 30;
-        track.style.transform = `translateX(-${centerOffset + randomInnerShift}px)`;
+        track.style.transition = "transform 6s cubic-bezier(0.05, 0, 0.05, 1)";
+        const microShift = (Math.random() * 100) - 50;
+        track.style.transform = `translateX(-${targetOffset + microShift}px)`;
     }, 50);
 
     setTimeout(() => {
-        document.getElementById("claim-area").style.display = "block";
-        const nameLabel = document.getElementById("win-name");
-        nameLabel.textContent = pendingDrop.name;
-        nameLabel.className = pendingDrop.r;
+        const display = document.getElementById("reward-display");
+        display.style.display = "block";
+        const label = document.getElementById("reward-name");
+        label.textContent = currentDrop.name;
+        label.className = currentDrop.r;
     }, 6500);
 }
 
-function collectReward() {
-    inventory.unshift(pendingDrop);
+function finalizeCollection() {
+    myItems.unshift(currentDrop);
     document.getElementById("opening-screen").style.display = "none";
     document.getElementById("main-menu").style.display = "flex";
-    updateInventoryUI();
-    saveGame();
+    renderInventory();
+    saveProgress();
 }
 
-// Selling Function
-function sellItem(id) {
-    const index = inventory.findIndex(item => item.id === id);
-    if (index !== -1) {
-        const item = inventory[index];
-        const sellPrice = Math.floor(item.p * 0.75);
-        balance += sellPrice;
-        inventory.splice(index, 1);
-        updateUI();
-        updateInventoryUI();
-        saveGame();
+function sellItem(uid) {
+    const idx = myItems.findIndex(i => i.uid === uid);
+    if (idx !== -1) {
+        const price = Math.floor(myItems[idx].p * 0.75);
+        wallet += price;
+        myItems.splice(idx, 1);
+        refreshHUD();
+        renderInventory();
+        saveProgress();
     }
 }
 
-function updateUI() {
-    document.getElementById("balance-display").textContent = "💎 " + balance.toLocaleString();
+function refreshHUD() {
+    document.getElementById("balance-display").textContent = "💎 " + wallet.toLocaleString();
 }
 
-function updateInventoryUI() {
+function renderInventory() {
     const grid = document.getElementById("inventory-grid");
     grid.innerHTML = "";
-    inventory.forEach(item => {
-        const div = document.createElement("div");
-        div.className = `inv-item ${item.r}`;
-        div.onclick = () => sellItem(item.id);
-        div.innerHTML = `
+    myItems.forEach(item => {
+        const slot = document.createElement("div");
+        slot.className = `inventory-slot ${item.r}`;
+        slot.onclick = () => sellItem(item.uid);
+        slot.innerHTML = `
             ${item.e} 
-            <span class="sell-price">💎 ${Math.floor(item.p * 0.75).toLocaleString()}</span>
+            <span class="sell-tag">💎 ${Math.floor(item.p * 0.75).toLocaleString()}</span>
         `;
-        grid.appendChild(div);
+        grid.appendChild(slot);
     });
 }
 
-function saveGame() {
-    localStorage.setItem("jewel_sim_final", JSON.stringify({
-        b: balance, 
-        i: inventory
+function saveProgress() {
+    localStorage.setItem("jewel_sim_v3", JSON.stringify({
+        cash: wallet, 
+        inv: myItems
     }));
 }
 
-function loadGame() {
-    const data = localStorage.getItem("jewel_sim_final");
+function loadProgress() {
+    const data = localStorage.getItem("jewel_sim_v3");
     if (data) {
-        const parsed = JSON.parse(data);
-        balance = parsed.b;
-        inventory = parsed.i;
-        updateInventoryUI();
+        const p = JSON.parse(data);
+        wallet = p.cash;
+        myItems = p.inv;
+        renderInventory();
     }
 }
 
-window.onload = init;
+window.onload = initGame;
 </script>
 </body>
 </html>
