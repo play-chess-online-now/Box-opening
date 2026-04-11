@@ -19,7 +19,7 @@
             --Divine: #ffea00;
             --Zenith: #ff3c00;
             
-            /* Gradients */
+            /* High Quality Gradients for Boxes */
             --g-Common: linear-gradient(135deg, #3a3d42 0%, #b5bdc9 100%);
             --g-Rare: linear-gradient(135deg, #0044ff 0%, #00d4ff 100%);
             --g-Epic: linear-gradient(135deg, #6a00ff 0%, #e100ff 100%);
@@ -82,145 +82,176 @@
             box-shadow: 0 0 20px rgba(255, 170, 0, 0.4);
             font-family: 'Rajdhani', sans-serif; text-transform: uppercase;
         }
-        #mining-btn:active { transform: scale(0.95); }
+        #mining-btn:active { transform: scale(0.95) rotate(2deg); }
 
         /* SHOP GRID */
         #shop-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 20px;
+            gap: 25px;
         }
 
         .case-card {
-            border-radius: 25px;
-            padding: 30px 15px;
+            border-radius: 30px;
+            padding: 35px 20px;
             text-align: center;
             border: 3px solid rgba(255,255,255,0.1);
             cursor: pointer;
-            transition: 0.3s;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
             background: rgba(255, 255, 255, 0.03);
         }
 
         .case-card:hover {
-            transform: translateY(-8px);
-            border-color: rgba(255,255,255,0.4);
+            transform: translateY(-12px) scale(1.03);
+            border-color: rgba(255,255,255,0.5);
+            z-index: 5;
         }
+
+        .case-card::before {
+            content: '';
+            position: absolute; top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: rotate(45deg); transition: 0.5s;
+        }
+        .case-card:hover::before { left: 100%; }
 
         .case-emoji {
-            font-size: 70px;
-            display: block; margin-bottom: 10px;
-            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.5));
+            font-size: 85px;
+            display: block; margin-bottom: 15px;
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.6));
+            animation: float 3s infinite ease-in-out;
         }
 
-        .case-name { font-size: 18px; font-weight: 900; display: block; margin-bottom: 10px; }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .case-name { font-size: 22px; font-weight: 900; display: block; margin-bottom: 12px; letter-spacing: 1px; }
 
         .case-price-tag {
-            background: rgba(0,0,0,0.6);
-            padding: 5px 15px;
-            border-radius: 50px; font-size: 15px; font-weight: 700;
-            color: #ffd700; border: 1px solid rgba(255,215,0,0.3);
+            background: rgba(0,0,0,0.7);
+            padding: 6px 18px;
+            border-radius: 50px; font-size: 16px; font-weight: 700;
+            border: 1px solid rgba(255,255,255,0.2); color: #fff;
         }
 
         /* INVENTORY */
         #inventory-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-            gap: 12px; margin-bottom: 50px;
+            grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+            gap: 15px; margin-bottom: 60px;
         }
 
         .item-slot {
             aspect-ratio: 1;
-            border-radius: 18px;
+            border-radius: 20px;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            font-size: 40px; border: 2px solid transparent; cursor: pointer;
-            transition: 0.2s;
+            font-size: 48px; border: 2px solid transparent; cursor: pointer;
+            transition: 0.3s;
             position: relative;
             background: rgba(255,255,255,0.05);
         }
-        .item-slot:hover { transform: scale(1.05); }
+        .item-slot:hover { transform: scale(1.1) rotate(3deg); z-index: 2; }
 
         .price-tag {
-            font-size: 11px;
-            position: absolute; bottom: 6px;
-            color: #ffd700; font-weight: 800; background: rgba(0,0,0,0.8);
-            padding: 2px 8px; border-radius: 6px;
+            font-size: 12px;
+            position: absolute; bottom: 8px;
+            color: #ffd700; font-weight: 800; background: rgba(0,0,0,0.85);
+            padding: 3px 10px; border-radius: 8px; border: 1px solid rgba(255,215,0,0.3);
         }
 
-        /* OPENING SCREEN */
+        /* --- OPENING SCREEN --- */
         #opening-screen {
-            position: fixed; inset: 0;
-            background: radial-gradient(circle, #1a1a2e 0%, #050508 100%);
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle at center, #1a1a2e 0%, #050508 100%);
             display: none; flex-direction: column; align-items: center; justify-content: center;
             z-index: 2000;
         }
 
-        #opening-box { font-size: 200px; cursor: pointer; }
+        #opening-box { font-size: 240px; cursor: pointer; transition: 0.3s; filter: drop-shadow(0 0 30px rgba(255,255,255,0.2)); }
         
         .shake { animation: shakeAnim 0.1s infinite; }
         @keyframes shakeAnim {
-            0% { transform: rotate(0); }
-            50% { transform: rotate(5deg); }
-            100% { transform: rotate(-5deg); }
+            0% { transform: translate(0,0); }
+            50% { transform: translate(8px, 4px) rotate(4deg); }
+            100% { transform: translate(-8px, -4px) rotate(-4deg); }
         }
 
-        .explode { animation: explodeAnim 0.5s forwards; }
+        .explode { animation: explodeAnim 0.6s forwards cubic-bezier(0.6, -0.28, 0.735, 0.045); }
         @keyframes explodeAnim {
-            100% { transform: scale(6); opacity: 0; filter: blur(20px) brightness(5); }
+            100% { transform: scale(8); opacity: 0; filter: blur(30px) brightness(10); }
         }
 
+        /* SPINNER */
         #spinner-wrap { display: none; width: 100%; flex-direction: column; align-items: center; }
         #spinner-view {
             position: relative;
-            width: 100%; max-width: 700px; height: 160px;
-            background: rgba(0,0,0,0.8); border-top: 3px solid var(--accent);
-            border-bottom: 3px solid var(--accent); margin: 30px 0; overflow: hidden;
-            border-radius: 15px;
+            width: 100%; max-width: 700px; height: 200px;
+            background: rgba(0,0,0,0.9); border-top: 4px solid var(--accent);
+            border-bottom: 4px solid var(--accent); margin: 40px 0; overflow: hidden;
+            box-shadow: 0 0 50px rgba(0,0,0,1) inset;
         }
         #spinner-rail {
-            display: flex; position: absolute; left: 0; height: 100%;
+            display: flex;
+            position: absolute; left: 0; height: 100%;
             align-items: center; transition: transform 6s cubic-bezier(0.05, 0, 0.05, 1);
         }
         .spinner-item {
-            min-width: 140px; height: 140px; margin: 0 10px;
+            min-width: 160px;
+            height: 160px; margin: 0 12px;
             display: flex; align-items: center; justify-content: center;
-            font-size: 70px; background: rgba(255,255,255,0.03);
-            border-radius: 20px;
+            font-size: 90px; background: rgba(255,255,255,0.03);
+            border-radius: 30px;
+            border: 4px solid transparent;
         }
         #spinner-line {
-            position: absolute; left: 50%; top: 0; width: 4px; height: 100%;
-            background: #fff; z-index: 100; transform: translateX(-50%);
+            position: absolute;
+            left: 50%; top: 0; width: 6px; height: 100%;
+            background: #fff; z-index: 100; box-shadow: 0 0 25px #fff; transform: translateX(-50%);
         }
 
-        #reward-ui { display: none; text-align: center; }
-        #reward-name { font-size: 40px; font-weight: 900; margin-bottom: 25px; text-transform: uppercase; }
+        #reward-ui { display: none; text-align: center; animation: rewardPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        @keyframes rewardPop { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+        #reward-name { font-size: 50px; font-weight: 900; margin-bottom: 35px; text-transform: uppercase; letter-spacing: 2px; }
         #collect-btn {
-            padding: 18px 70px; background: #fff; border: none; border-radius: 50px;
-            color: #000; font-weight: 900; font-size: 22px; cursor: pointer;
+            padding: 22px 90px;
+            background: #fff; border: none; border-radius: 100px;
+            color: #000; font-weight: 900; font-size: 26px; cursor: pointer;
+            box-shadow: 0 0 40px rgba(255,255,255,0.5);
+            text-transform: uppercase;
+            transition: 0.3s;
         }
+        #collect-btn:hover { transform: scale(1.1); box-shadow: 0 0 60px rgba(255,255,255,0.8); }
 
-        /* RARITIES */
-        .Common { background: var(--g-Common); border-color: var(--Common); color: var(--Common); }
-        .Rare { background: var(--g-Rare); border-color: var(--Rare); color: var(--Rare); }
-        .Epic { background: var(--g-Epic); border-color: var(--Epic); color: var(--Epic); }
-        .Legendary { background: var(--g-Legendary); border-color: var(--Legendary); color: var(--Legendary); }
-        .Mythic { background: var(--g-Mythic); border-color: var(--Mythic); color: var(--Mythic); }
-        .Exotic { background: var(--g-Exotic); border-color: var(--Exotic); color: var(--Exotic); }
-        .Divine { background: var(--g-Divine); border-color: var(--Divine); color: var(--Divine); }
-        .Zenith { background: var(--g-Zenith); border-color: var(--Zenith); color: var(--Zenith); }
+        /* RARITY SYSTEM - COLORS & GLOWS */
+        .Common { background: var(--g-Common); border-color: var(--Common); box-shadow: 0 0 20px rgba(181,189,201,0.4); color: var(--Common); text-shadow: 0 0 10px var(--Common); }
+        .Rare { background: var(--g-Rare); border-color: var(--Rare); box-shadow: 0 0 25px rgba(0,119,255,0.5); color: var(--Rare); text-shadow: 0 0 10px var(--Rare); }
+        .Epic { background: var(--g-Epic); border-color: var(--Epic); box-shadow: 0 0 30px rgba(162,0,255,0.6); color: var(--Epic); text-shadow: 0 0 10px var(--Epic); }
+        .Legendary { background: var(--g-Legendary); border-color: var(--Legendary); box-shadow: 0 0 35px rgba(255,170,0,0.7); color: var(--Legendary); text-shadow: 0 0 15px var(--Legendary); }
+        .Mythic { background: var(--g-Mythic); border-color: var(--Mythic); box-shadow: 0 0 45px rgba(255,0,119,0.8); color: var(--Mythic); text-shadow: 0 0 20px var(--Mythic); }
+        .Exotic { background: var(--g-Exotic); border-color: var(--Exotic); box-shadow: 0 0 50px rgba(0,255,162,0.9); color: var(--Exotic); text-shadow: 0 0 20px var(--Exotic); }
+        .Divine { background: var(--g-Divine); border-color: var(--Divine); box-shadow: 0 0 60px rgba(255,234,0,1); color: var(--Divine); text-shadow: 0 0 25px var(--Divine); }
+        .Zenith { background: var(--g-Zenith); border-color: var(--Zenith); box-shadow: 0 0 80px rgba(255,60,0,1); color: var(--Zenith); text-shadow: 0 0 30px var(--Zenith); }
     </style>
 </head>
 <body>
 
-<div id="main-menu" style="display: flex; flex-direction: column;">
+<div id="main-menu">
     <div id="top-bar">
-        <div style="font-family: 'Exo 2', sans-serif; font-weight: 900; color: var(--accent); font-size: 24px;">CASE SIMULATOR ULTRA</div>
-        <div id="balance-display">💎 0</div>
+        <div style="font-family: 'Exo 2', sans-serif; font-weight: 900; color: var(--accent); font-size: 26px; letter-spacing: 2px;">CASE SIMULATOR ULTRA</div>
+        <div id="balance-display">💎 1,000</div>
     </div>
 
     <div class="container">
         <div class="section-header">
             <h2 class="section-title">Case Market</h2>
-            <button id="mining-btn" onclick="mine()">Mine (+10)</button>
+            <button id="mining-btn" onclick="mine()">Mine Diamonds (+10)</button>
         </div>
         <div id="shop-grid"></div>
 
@@ -233,7 +264,8 @@
 
 <div id="opening-screen">
     <div id="opening-box">📦</div>
-    <div id="tap-info" style="margin-top: 30px; font-weight: 900; color: #fff; font-size: 24px;">TAP TO OPEN</div>
+    <div id="tap-info" style="margin-top: 50px; font-weight: 900; color: #fff; font-size: 32px; letter-spacing: 5px; text-shadow: 0 0 20px rgba(0,0,0,0.5);">CLICK TO OPEN!</div>
+    
     <div id="spinner-wrap">
         <div id="spinner-view">
             <div id="spinner-line"></div>
@@ -247,7 +279,7 @@
 </div>
 
 <script>
-// --- DATABASE ---
+// --- FULL ITEM DATABASE ---
 const ITEMS = {
     "Rusty Nail": {r:"Common", e:"🔩", p:35}, "Old Boot": {r:"Common", e:"🥾", p:50}, "Sharp Stone": {r:"Common", e:"🪨", p:65},
     "Iron Sword": {r:"Rare", e:"⚔️", p:420}, "Steel Shield": {r:"Rare", e:"🛡️", p:480}, "Hunter Bow": {r:"Rare", e:"🏹", p:550},
@@ -259,7 +291,7 @@ const ITEMS = {
     "Infinity Eye": {r:"Zenith", e:"👁️", p:100000000}, "God Scepter": {r:"Zenith", e:"🔱", p:200000000}
 };
 
-// --- UPDATED CASES (10 CASES) ---
+// --- CASES DATABASE (10 CASES, CORRECT PRICES) ---
 const CASES = [
     {id: "WOODEN", cost: 100, e: "📦", r: "Common", drops: ["Rusty Nail", "Old Boot", "Sharp Stone", "Iron Sword"]},
     {id: "IRON", cost: 500, e: "📦", r: "Rare", drops: ["Iron Sword", "Steel Shield", "Hunter Bow"]},
@@ -273,7 +305,7 @@ const CASES = [
     {id: "OMEGA", cost: 250000, e: "🎁", r: "Zenith", drops: ["Holy Grail", "Infinity Eye", "God Scepter"]}
 ];
 
-let money = 100;
+let money = 1000;
 let inv = [];
 let pending = null;
 
@@ -299,13 +331,15 @@ function mine() { money += 10; update(); save(); }
 
 function buy(c) {
     if (money < c.cost) return alert("Za mało diamentów!");
+    
     money -= c.cost;
     const pool = c.drops;
     const dropName = pool[Math.floor(Math.random() * pool.length)];
     pending = { name: dropName, ...ITEMS[dropName], id: Date.now() + Math.random() };
     
     document.getElementById("main-menu").style.display = "none";
-    document.getElementById("opening-screen").style.display = "flex";
+    const screen = document.getElementById("opening-screen");
+    screen.style.display = "flex";
     
     const box = document.getElementById("opening-box");
     box.style.display = "block";
@@ -324,6 +358,7 @@ function startOpening() {
     box.onclick = null;
     box.classList.add("shake");
     document.getElementById("tap-info").style.display = "none";
+    
     setTimeout(() => {
         box.classList.remove("shake");
         box.classList.add("explode");
@@ -345,6 +380,7 @@ function runSpinner() {
 
     const winIdx = 35;
     const allKeys = Object.keys(ITEMS);
+    
     for (let i = 0; i < 60; i++) {
         const data = (i === winIdx) ? pending : ITEMS[allKeys[Math.floor(Math.random() * allKeys.length)]];
         const card = document.createElement("div");
@@ -353,12 +389,14 @@ function runSpinner() {
         rail.appendChild(card);
     }
 
-    const itemW = 160;
+    const itemW = 184; // 160 width + 24 margins
     const viewW = document.getElementById("spinner-view").offsetWidth;
     const offset = (winIdx * itemW) - (viewW / 2) + (itemW / 2);
+    
     setTimeout(() => {
         rail.style.transition = "transform 6s cubic-bezier(0.05, 0, 0.05, 1)";
-        rail.style.transform = `translateX(-${offset + (Math.random()*40-20)}px)`;
+        const microShift = (Math.random() * 80) - 40;
+        rail.style.transform = `translateX(-${offset + microShift}px)`;
     }, 50);
 
     setTimeout(() => {
@@ -372,9 +410,11 @@ function runSpinner() {
 function collect() {
     inv.unshift(pending);
     document.getElementById("opening-screen").style.display = "none";
+    
+    // Nareszcie naprawione! Zwykły block zamiast psującego wszystko flexa
     const mainMenu = document.getElementById("main-menu");
-    mainMenu.style.display = "flex";
-    mainMenu.style.flexDirection = "column";
+    mainMenu.style.display = "block";
+    
     renderInv();
     save();
 }
@@ -406,9 +446,10 @@ function renderInv() {
     });
 }
 
-function save() { localStorage.setItem("box_sim_v10", JSON.stringify({m: money, i: inv})); }
+// Zmieniam klucz local storage żeby wyzerować ci buga i odświeżyć stan
+function save() { localStorage.setItem("box_sim_v11", JSON.stringify({m: money, i: inv})); }
 function load() {
-    const data = localStorage.getItem("box_sim_v10");
+    const data = localStorage.getItem("box_sim_v11");
     if (data) {
         const p = JSON.parse(data);
         money = p.m; inv = p.i;
