@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>💎 Jewel Case Simulator PRO</title>
+    <title>💎 Jewel Case Simulator ULTRA</title>
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Exo+2:wght@900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #050508;
+            --bg: #030305;
             --accent: #00f2ff;
-            --panel: rgba(255, 255, 255, 0.05);
-            /* Rarity Colors */
+            /* Rarity Colors with Gradients */
             --Common: #b5bdc9;
             --Rare: #0077ff;
             --Epic: #a200ff;
@@ -19,6 +18,15 @@
             --Exotic: #00ffa2;
             --Divine: #ffea00;
             --Zenith: #ff3c00;
+            
+            --grad-Common: linear-gradient(135deg, #2c2f33 0%, #4f545c 100%);
+            --grad-Rare: linear-gradient(135deg, #003366 0%, #0077ff 100%);
+            --grad-Epic: linear-gradient(135deg, #440066 0%, #a200ff 100%);
+            --grad-Legendary: linear-gradient(135deg, #664400 0%, #ffaa00 100%);
+            --grad-Mythic: linear-gradient(135deg, #660033 0%, #ff0077 100%);
+            --grad-Exotic: linear-gradient(135deg, #006644 0%, #00ffa2 100%);
+            --grad-Divine: linear-gradient(135deg, #665500 0%, #ffea00 100%);
+            --grad-Zenith: linear-gradient(135deg, #661100 0%, #ff3c00 100%);
         }
 
         * {
@@ -36,171 +44,167 @@
             overflow-x: hidden;
         }
 
-        /* --- MAIN INTERFACE --- */
-        #main-menu {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
+        /* --- HEADER --- */
         #top-bar {
             position: sticky;
             top: 0;
             z-index: 100;
-            padding: 15px 20px;
-            background: #0a0a15;
+            padding: 15px 25px;
+            background: rgba(10, 10, 20, 0.95);
+            backdrop-filter: blur(10px);
             border-bottom: 2px solid var(--accent);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+            box-shadow: 0 0 20px rgba(0, 242, 255, 0.2);
         }
 
         #balance-display {
-            font-size: 26px;
+            font-size: 28px;
             font-weight: 700;
             color: #ffd700;
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
         }
 
+        /* --- CONTENT --- */
         .container {
             padding: 20px;
             max-width: 1200px;
             margin: 0 auto;
-            width: 100%;
         }
 
-        .section-title {
-            font-size: 20px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin: 30px 0 15px 0;
-            color: var(--accent);
-            border-left: 5px solid var(--accent);
-            padding-left: 15px;
+        .section-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            margin: 30px 0 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .section-title {
+            font-size: 22px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--accent);
+            font-weight: 700;
         }
 
         /* Mining Button */
         #mining-btn {
             background: linear-gradient(45deg, #ffd700, #ffaa00);
             border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
+            padding: 12px 24px;
+            border-radius: 12px;
             color: #000;
             font-weight: 800;
             cursor: pointer;
             font-family: 'Rajdhani', sans-serif;
             transition: 0.2s;
-            box-shadow: 0 0 15px rgba(255, 170, 0, 0.4);
+            box-shadow: 0 0 20px rgba(255, 170, 0, 0.4);
+            text-transform: uppercase;
         }
 
         #mining-btn:active {
-            transform: scale(0.92);
+            transform: scale(0.9) rotate(-2deg);
         }
 
         /* Shop Grid */
         #shop-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
             gap: 20px;
         }
 
         .case-card {
-            background: var(--panel);
-            border-radius: 20px;
-            padding: 25px;
+            border-radius: 24px;
+            padding: 30px 20px;
             text-align: center;
             border: 2px solid rgba(255,255,255,0.1);
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
-            overflow: hidden;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
 
         .case-card:hover {
-            transform: translateY(-10px);
-            filter: brightness(1.2);
+            transform: scale(1.05) translateY(-15px) !important;
+            z-index: 10;
+            filter: brightness(1.3);
         }
 
-        .case-card::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(255,255,255,0.05), transparent);
-            pointer-events: none;
-        }
-
-        .case-icon {
-            font-size: 60px;
+        .case-emoji {
+            font-size: 70px;
             display: block;
             margin-bottom: 15px;
-            filter: drop-shadow(0 0 15px rgba(255,255,255,0.3));
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.5));
         }
 
         .case-name {
+            font-size: 20px;
             font-weight: 700;
-            font-size: 19px;
+            margin-bottom: 10px;
             display: block;
-            margin-bottom: 5px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
         }
 
-        .case-price {
-            color: #fff;
-            background: rgba(0,0,0,0.3);
-            padding: 4px 10px;
+        .case-price-tag {
+            background: rgba(0,0,0,0.5);
+            padding: 5px 15px;
             border-radius: 20px;
             font-size: 14px;
             font-weight: 700;
-            display: inline-block;
+            border: 1px solid rgba(255,255,255,0.2);
         }
 
-        /* Inventory Grid */
+        /* Inventory */
         #inventory-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
             gap: 15px;
-            margin-bottom: 50px;
         }
 
-        .inventory-slot {
+        .item-slot {
             aspect-ratio: 1;
-            background: rgba(0,0,0,0.5);
-            border-radius: 15px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 18px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            font-size: 38px;
+            font-size: 45px;
             border: 2px solid rgba(255,255,255,0.1);
             cursor: pointer;
+            transition: 0.3s;
             position: relative;
-            transition: 0.2s;
         }
 
-        .inventory-slot:hover {
-            transform: scale(1.08);
-            z-index: 10;
+        .item-slot:hover {
+            transform: scale(1.1);
+            background: rgba(255,255,255,0.08);
         }
 
-        .sell-tag {
+        .price-label {
             font-size: 11px;
             position: absolute;
-            bottom: 6px;
+            bottom: 8px;
             color: #ffd700;
             font-weight: 700;
-            background: rgba(0,0,0,0.7);
-            padding: 2px 6px;
-            border-radius: 4px;
+            background: rgba(0,0,0,0.8);
+            padding: 2px 8px;
+            border-radius: 6px;
         }
 
-        /* --- OPENING SCREEN (FULL SCREEN) --- */
+        /* --- OPENING SCREEN --- */
         #opening-screen {
             position: fixed;
             inset: 0;
-            background: radial-gradient(circle at center, #1a1a2e 0%, #050508 100%);
+            background: radial-gradient(circle at center, #111122 0%, #030305 100%);
             display: none;
             flex-direction: column;
             align-items: center;
@@ -208,54 +212,46 @@
             z-index: 2000;
         }
 
-        #box-to-open {
-            font-size: 200px;
+        #opening-box {
+            font-size: 220px;
             cursor: pointer;
+            filter: drop-shadow(0 0 50px rgba(255,255,255,0.2));
             transition: 0.3s;
-            filter: drop-shadow(0 0 50px rgba(255,255,255,0.1));
-            user-select: none;
         }
 
-        .shake-anim {
-            animation: shakeEffect 0.12s infinite;
-        }
-
-        @keyframes shakeEffect {
+        .shake-box { animation: shake 0.1s infinite; }
+        @keyframes shake {
             0% { transform: translate(0,0); }
-            25% { transform: translate(6px, 6px) rotate(3deg); }
-            75% { transform: translate(-6px, -6px) rotate(-3deg); }
+            50% { transform: translate(10px, 5px) rotate(5deg); }
+            100% { transform: translate(-10px, -5px) rotate(-5deg); }
         }
 
-        .explode-anim {
-            animation: explodeEffect 0.5s forwards ease-out;
+        .explode-box { animation: explode 0.5s forwards; }
+        @keyframes explode {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(6); opacity: 0; filter: brightness(5) blur(20px); }
         }
 
-        @keyframes explodeEffect {
-            0% { transform: scale(1); opacity: 1; filter: brightness(1); }
-            100% { transform: scale(5); opacity: 0; filter: brightness(10) blur(10px); }
-        }
-
-        /* FULL SCREEN ROULETTE */
-        #roulette-wrap {
+        /* SPINNER */
+        #spinner-wrap {
             display: none;
             width: 100%;
             flex-direction: column;
             align-items: center;
         }
 
-        #roulette-container {
+        #spinner-view {
             position: relative;
             width: 100%;
-            height: 160px;
-            background: rgba(0,0,0,0.8);
-            border-top: 3px solid rgba(255,255,255,0.1);
-            border-bottom: 3px solid rgba(255,255,255,0.1);
+            height: 180px;
+            background: rgba(0,0,0,0.6);
+            border-top: 3px solid var(--accent);
+            border-bottom: 3px solid var(--accent);
             margin: 40px 0;
             overflow: hidden;
-            box-shadow: 0 0 40px rgba(0,0,0,1) inset;
         }
 
-        #roulette-track {
+        #spinner-rail {
             display: flex;
             position: absolute;
             left: 0;
@@ -264,21 +260,20 @@
             transition: transform 6s cubic-bezier(0.05, 0, 0.05, 1);
         }
 
-        .roulette-card {
-            min-width: 140px;
-            height: 140px;
-            margin: 0 6px;
+        .spinner-item {
+            min-width: 150px;
+            height: 150px;
+            margin: 0 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 65px;
-            background: rgba(20,20,30,0.9);
-            border-radius: 18px;
+            font-size: 80px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 20px;
             border: 3px solid transparent;
-            position: relative;
         }
 
-        #roulette-pointer {
+        #center-line {
             position: absolute;
             left: 50%;
             top: 0;
@@ -286,293 +281,276 @@
             height: 100%;
             background: #fff;
             z-index: 100;
-            box-shadow: 0 0 25px #fff, 0 0 10px var(--accent);
+            box-shadow: 0 0 20px #fff;
             transform: translateX(-50%);
         }
 
-        #reward-display {
+        #win-display {
             display: none;
             text-align: center;
-            animation: fadeInUp 0.5s both;
+            animation: fadeIn 0.8s forwards;
         }
 
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        #reward-name {
-            font-size: 45px;
+        #win-text {
+            font-size: 48px;
             font-weight: 900;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             text-transform: uppercase;
-            letter-spacing: 3px;
+            letter-spacing: 5px;
         }
 
-        #claim-button {
-            padding: 20px 60px;
+        #claim-btn {
+            padding: 22px 70px;
             background: #fff;
             border: none;
             border-radius: 100px;
             color: #000;
             font-weight: 900;
-            font-size: 22px;
+            font-size: 24px;
             cursor: pointer;
-            box-shadow: 0 0 30px rgba(255,255,255,0.4);
+            box-shadow: 0 0 40px rgba(255,255,255,0.3);
             text-transform: uppercase;
-            transition: 0.3s;
-        }
-        
-        #claim-button:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 50px rgba(255,255,255,0.7);
         }
 
-        /* --- COLOR & NEON SYSTEM --- */
-        .Common { border-color: var(--Common) !important; color: var(--Common); box-shadow: 0 0 15px rgba(181, 189, 201, 0.2); text-shadow: 0 0 10px var(--Common); }
-        .Rare { border-color: var(--Rare) !important; color: var(--Rare); box-shadow: 0 0 20px rgba(0, 119, 255, 0.3); text-shadow: 0 0 12px var(--Rare); }
-        .Epic { border-color: var(--Epic) !important; color: var(--Epic); box-shadow: 0 0 25px rgba(162, 0, 255, 0.4); text-shadow: 0 0 15px var(--Epic); }
-        .Legendary { border-color: var(--Legendary) !important; color: var(--Legendary); box-shadow: 0 0 30px rgba(255, 170, 0, 0.5); text-shadow: 0 0 20px var(--Legendary); }
-        .Mythic { border-color: var(--Mythic) !important; color: var(--Mythic); box-shadow: 0 0 35px rgba(255, 0, 119, 0.6); text-shadow: 0 0 25px var(--Mythic); }
-        .Exotic { border-color: var(--Exotic) !important; color: var(--Exotic); box-shadow: 0 0 40px rgba(0, 255, 162, 0.7); text-shadow: 0 0 30px var(--Exotic); }
-        .Divine { border-color: var(--Divine) !important; color: var(--Divine); box-shadow: 0 0 50px rgba(255, 234, 0, 0.8); text-shadow: 0 0 35px var(--Divine); }
-        .Zenith { border-color: var(--Zenith) !important; color: var(--Zenith); box-shadow: 0 0 60px rgba(255, 60, 0, 1); text-shadow: 0 0 40px var(--Zenith); }
+        /* --- RARITY CLASSES --- */
+        .Common { background: var(--grad-Common); border-color: var(--Common); box-shadow: 0 0 20px rgba(181, 189, 201, 0.3); color: var(--Common); text-shadow: 0 0 10px var(--Common); }
+        .Rare { background: var(--grad-Rare); border-color: var(--Rare); box-shadow: 0 0 25px rgba(0, 119, 255, 0.4); color: var(--Rare); text-shadow: 0 0 10px var(--Rare); }
+        .Epic { background: var(--grad-Epic); border-color: var(--Epic); box-shadow: 0 0 30px rgba(162, 0, 255, 0.5); color: var(--Epic); text-shadow: 0 0 10px var(--Epic); }
+        .Legendary { background: var(--grad-Legendary); border-color: var(--Legendary); box-shadow: 0 0 35px rgba(255, 170, 0, 0.6); color: var(--Legendary); text-shadow: 0 0 10px var(--Legendary); }
+        .Mythic { background: var(--grad-Mythic); border-color: var(--Mythic); box-shadow: 0 0 40px rgba(255, 0, 119, 0.7); color: var(--Mythic); text-shadow: 0 0 15px var(--Mythic); }
+        .Exotic { background: var(--grad-Exotic); border-color: var(--Exotic); box-shadow: 0 0 45px rgba(0, 255, 162, 0.8); color: var(--Exotic); text-shadow: 0 0 15px var(--Exotic); }
+        .Divine { background: var(--grad-Divine); border-color: var(--Divine); box-shadow: 0 0 50px rgba(255, 234, 0, 0.9); color: var(--Divine); text-shadow: 0 0 20px var(--Divine); }
+        .Zenith { background: var(--grad-Zenith); border-color: var(--Zenith); box-shadow: 0 0 60px rgba(255, 60, 0, 1); color: var(--Zenith); text-shadow: 0 0 25px var(--Zenith); }
     </style>
 </head>
 <body>
 
 <div id="main-menu">
     <div id="top-bar">
-        <div style="font-family: 'Exo 2', sans-serif; font-weight: 900; color: var(--accent); font-size: 22px; letter-spacing: 1px;">JEWEL SIM PRO</div>
+        <div style="font-family: 'Exo 2', sans-serif; font-weight: 900; color: var(--accent); font-size: 24px;">JEWEL SIM ULTRA</div>
         <div id="balance-display">💎 10,000</div>
     </div>
 
     <div class="container">
-        <div class="section-title">
-            Case Market
-            <button id="mining-btn" onclick="mineDiamonds()">MINE DIAMONDS (+10)</button>
+        <div class="section-header">
+            <h2 class="section-title">Market</h2>
+            <button id="mining-btn" onclick="mineGems()">Mine Diamonds (+10)</button>
         </div>
         <div id="shop-grid"></div>
 
-        <div class="section-title">Inventory (Click to sell)</div>
+        <div class="section-header">
+            <h2 class="section-title">Your Inventory</h2>
+        </div>
         <div id="inventory-grid"></div>
     </div>
 </div>
 
 <div id="opening-screen">
-    <div id="box-to-open">📦</div>
-    <div id="tap-hint" style="margin-top: 40px; font-weight: 700; color: #fff; font-size: 24px; letter-spacing: 2px;">CLICK TO OPEN!</div>
+    <div id="opening-box">📦</div>
+    <div id="click-info" style="margin-top: 50px; font-weight: 700; color: #fff; font-size: 28px; letter-spacing: 5px;">TAP TO OPEN</div>
     
-    <div id="roulette-wrap">
-        <div id="roulette-container">
-            <div id="roulette-pointer"></div>
-            <div id="roulette-track"></div>
+    <div id="spinner-wrap">
+        <div id="spinner-view">
+            <div id="center-line"></div>
+            <div id="spinner-rail"></div>
         </div>
       
-        <div id="reward-display">
-            <div id="reward-name">ITEM</div>
-            <button id="claim-button" onclick="finalizeCollection()">CLAIM AND RETURN</button>
+        <div id="win-display">
+            <div id="win-text">ITEM</div>
+            <button id="claim-btn" onclick="closeOpening()">COLLECT</button>
         </div>
     </div>
 </div>
 
 <script>
-// --- DATABASE ---
+// --- FULL DATABASE ---
 const ITEMS = {
-    "Stone": {r:"Common", e:"🪨", p:40}, "Stick": {r:"Common", e:"🪵", p:50}, "Bone": {r:"Common", e:"🦴", p:60},
-    "Iron Sword": {r:"Rare", e:"⚔️", p:350}, "Steel Shield": {r:"Rare", e:"🛡️", p:400}, "Hunting Bow": {r:"Rare", e:"🏹", p:450},
-    "Magic Orb": {r:"Epic", e:"🔮", p:1800}, "Sea Trident": {r:"Epic", e:"🔱", p:2200}, "Dark Axe": {r:"Epic", e:"🪓", p:2500},
-    "Royal Crown": {r:"Legendary", e:"👑", p:12000}, "Ancient Key": {r:"Legendary", e:"🔑", p:15000},
-    "Fire Phoenix": {r:"Mythic", e:"🐦‍🔥", p:180000}, "Void Serpent": {r:"Mythic", e:"🐍", p:350000},
-    "Black Hole": {r:"Exotic", e:"🕳️", p:1200000}, "Galaxy Vortex": {r:"Exotic", e:"🌀", p:2000000},
-    "Divine Wings": {r:"Divine", e:"🪽", p:8000000}, "Holy Grail": {r:"Divine", e:"⚱️", p:20000000},
-    "Infinity Core": {r:"Zenith", e:"🌌", p:75000000}, "God Scepter": {r:"Zenith", e:"🔱", p:100000000}
+    "Rusty Nail": {r:"Common", e:"🔩", p:30}, "Old Boot": {r:"Common", e:"🥾", p:40}, "Rock": {r:"Common", e:"🪨", p:50},
+    "Iron Sword": {r:"Rare", e:"⚔️", p:350}, "Guard Shield": {r:"Rare", e:"🛡️", p:400}, "Long Bow": {r:"Rare", e:"🏹", p:450},
+    "Mana Orb": {r:"Epic", e:"🔮", p:2000}, "Deep Trident": {r:"Epic", e:"🔱", p:2500}, "Battle Axe": {r:"Epic", e:"🪓", p:2800},
+    "Golden Crown": {r:"Legendary", e:"👑", p:15000}, "Master Key": {r:"Legendary", e:"🔑", p:18000},
+    "Solar Phoenix": {r:"Mythic", e:"🐦‍🔥", p:200000}, "Void Serpent": {r:"Mythic", e:"🐍", p:400000},
+    "Black Hole": {r:"Exotic", e:"🕳️", p:1500000}, "Cosmos Vortex": {r:"Exotic", e:"🌀", p:2500000},
+    "Divine Wings": {r:"Divine", e:"🪽", p:10000000}, "Holy Grail": {r:"Divine", e:"⚱️", p:25000000},
+    "Infinity Core": {r:"Zenith", e:"🌌", p:80000000}, "Godly Scepter": {r:"Zenith", e:"🔱", p:120000000}
 };
 
 const CASES = {
-    "Wooden": {cost:100, e:"📦", r:"Common", drops:["Stone", "Stick", "Bone", "Iron Sword"]},
-    "Iron": {cost:600, e:"📦", r:"Rare", drops:["Iron Sword", "Steel Shield", "Hunting Bow", "Magic Orb"]},
-    "Bronze": {cost:2500, e:"🧰", r:"Rare", drops:["Steel Shield", "Magic Orb", "Sea Trident", "Dark Axe"]},
-    "Silver": {cost:12000, e:"🧰", r:"Epic", drops:["Magic Orb", "Dark Axe", "Royal Crown", "Ancient Key"]},
-    "Gold": {cost:60000, e:"💎", r:"Legendary", drops:["Royal Crown", "Ancient Key", "Fire Phoenix"]},
-    "Legendary": {cost:300000, e:"💎", r:"Legendary", drops:["Fire Phoenix", "Void Serpent", "Black Hole"]},
-    "Mythic": {cost:1500000, e:"🏆", r:"Mythic", drops:["Void Serpent", "Black Hole", "Galaxy Vortex"]},
-    "Divine": {cost:8000000, e:"🏆", r:"Divine", drops:["Galaxy Vortex", "Divine Wings", "Holy Grail", "Infinity Core"]},
-    "Omega": {cost:40000000, e:"🏆", r:"Zenith", drops:["Holy Grail", "Infinity Core", "God Scepter"]}
+    "Basic": {cost:100, e:"📦", r:"Common", drops:["Rusty Nail", "Old Boot", "Rock", "Iron Sword"]},
+    "Soldier": {cost:700, e:"🧰", r:"Rare", drops:["Iron Sword", "Guard Shield", "Long Bow", "Mana Orb"]},
+    "Knight": {cost:3000, e:"🧰", r:"Rare", drops:["Guard Shield", "Mana Orb", "Deep Trident", "Battle Axe"]},
+    "Sorcerer": {cost:15000, e:"💎", r:"Epic", drops:["Mana Orb", "Deep Trident", "Golden Crown", "Master Key"]},
+    "King": {cost:75000, e:"💎", r:"Legendary", drops:["Golden Crown", "Master Key", "Solar Phoenix"]},
+    "Void": {cost:350000, e:"🏆", r:"Legendary", drops:["Solar Phoenix", "Void Serpent", "Black Hole"]},
+    "Galactic": {cost:1800000, e:"🏆", r:"Mythic", drops:["Void Serpent", "Black Hole", "Cosmos Vortex"]},
+    "Ascended": {cost:10000000, e:"🎁", r:"Divine", drops:["Cosmos Vortex", "Divine Wings", "Holy Grail", "Infinity Core"]},
+    "Omega": {cost:50000000, e:"🎁", r:"Zenith", drops:["Holy Grail", "Infinity Core", "Godly Scepter"]}
 };
 
-let wallet = 10000;
-let myItems = [];
-let currentDrop = null;
+let balance = 10000;
+let inventory = [];
+let lastDrop = null;
 
-function initGame() {
+function init() {
     const shop = document.getElementById("shop-grid");
     Object.keys(CASES).forEach(name => {
         const c = CASES[name];
         const card = document.createElement("div");
         card.className = `case-card ${c.r}`;
-        card.onclick = () => purchaseCase(name);
+        card.onclick = () => startPurchase(name);
         card.innerHTML = `
-            <span class="case-icon">${c.e}</span>
+            <span class="case-emoji">${c.e}</span>
             <span class="case-name">${name} Case</span>
-            <span class="case-price">💎 ${c.cost.toLocaleString()}</span>
+            <span class="case-price-tag">💎 ${c.cost.toLocaleString()}</span>
         `;
         shop.appendChild(card);
     });
-    loadProgress();
-    refreshHUD();
+    loadGame();
+    updateUI();
 }
 
-function mineDiamonds() {
-    wallet += 10;
-    refreshHUD();
-    saveProgress();
+function mineGems() {
+    balance += 10;
+    updateUI();
+    saveGame();
 }
 
-function purchaseCase(name) {
+function startPurchase(name) {
     const c = CASES[name];
-    if (wallet < c.cost) return alert("Insufficient diamonds!");
+    if (balance < c.cost) return alert("You need more diamonds!");
     
-    wallet -= c.cost;
+    balance -= c.cost;
     const pool = c.drops;
-    const dropKey = pool[Math.floor(Math.random() * pool.length)];
-    currentDrop = { 
-        name: dropKey, 
-        ...ITEMS[dropKey], 
-        uid: Date.now() + Math.random()
-    };
+    const itemName = pool[Math.floor(Math.random() * pool.length)];
+    lastDrop = { name: itemName, ...ITEMS[itemName], uid: Date.now() + Math.random() };
     
     document.getElementById("main-menu").style.display = "none";
     const screen = document.getElementById("opening-screen");
     screen.style.display = "flex";
     
-    const box = document.getElementById("box-to-open");
+    const box = document.getElementById("opening-box");
     box.style.display = "block";
     box.textContent = c.e;
-    box.className = c.r; 
-    box.onclick = startBoxSequence;
+    box.className = c.r;
+    box.onclick = triggerOpening;
     
-    document.getElementById("tap-hint").style.display = "block";
-    document.getElementById("roulette-wrap").style.display = "none";
-    document.getElementById("reward-display").style.display = "none";
+    document.getElementById("click-info").style.display = "block";
+    document.getElementById("spinner-wrap").style.display = "none";
+    document.getElementById("win-display").style.display = "none";
     
-    refreshHUD();
+    updateUI();
 }
 
-function startBoxSequence() {
-    const box = document.getElementById("box-to-open");
+function triggerOpening() {
+    const box = document.getElementById("opening-box");
     box.onclick = null;
-    box.classList.add("shake-anim");
-    document.getElementById("tap-hint").style.display = "none";
+    box.classList.add("shake-box");
+    document.getElementById("click-info").style.display = "none";
     
     setTimeout(() => {
-        box.classList.remove("shake-anim");
-        box.classList.add("explode-anim");
+        box.classList.remove("shake-box");
+        box.classList.add("explode-box");
         setTimeout(() => {
             box.style.display = "none";
-            box.classList.remove("explode-anim");
-            runRoulette();
+            box.classList.remove("explode-box");
+            startSpinner();
         }, 450);
     }, 1000);
 }
 
-function runRoulette() {
-    const wrap = document.getElementById("roulette-wrap");
-    const track = document.getElementById("roulette-track");
+function startSpinner() {
+    const wrap = document.getElementById("spinner-wrap");
+    const rail = document.getElementById("spinner-rail");
     wrap.style.display = "flex";
-    track.innerHTML = "";
-    track.style.transition = "none";
-    track.style.transform = "translateX(0)";
+    rail.innerHTML = "";
+    rail.style.transition = "none";
+    rail.style.transform = "translateX(0)";
 
-    const winningPosition = 35;
-    const allKeys = Object.keys(ITEMS);
+    const winIndex = 35;
+    const keys = Object.keys(ITEMS);
     
     for (let i = 0; i < 50; i++) {
-        const itemData = (i === winningPosition) ? currentDrop : ITEMS[allKeys[Math.floor(Math.random() * allKeys.length)]];
+        const data = (i === winIndex) ? lastDrop : ITEMS[keys[Math.floor(Math.random() * keys.length)]];
         const card = document.createElement("div");
-        card.className = `roulette-card ${itemData.r}`;
-        card.innerHTML = itemData.e;
-        track.appendChild(card);
+        card.className = `spinner-item ${data.r}`;
+        card.innerHTML = data.e;
+        rail.appendChild(card);
     }
 
-    const cardTotalWidth = 152; // 140px width + 12px margins
-    const containerWidth = document.getElementById("roulette-container").offsetWidth;
-    
-    // Exact centering formula
-    const targetOffset = (winningPosition * cardTotalWidth) - (containerWidth / 2) + (cardTotalWidth / 2);
+    const itemWidth = 166; // 150 width + 16 margins
+    const viewWidth = document.getElementById("spinner-view").offsetWidth;
+    const finalOffset = (winIndex * itemWidth) - (viewWidth / 2) + (itemWidth / 2);
     
     setTimeout(() => {
-        track.style.transition = "transform 6s cubic-bezier(0.05, 0, 0.05, 1)";
-        const microShift = (Math.random() * 100) - 50;
-        track.style.transform = `translateX(-${targetOffset + microShift}px)`;
+        rail.style.transition = "transform 6s cubic-bezier(0.05, 0, 0.05, 1)";
+        const randomShift = (Math.random() * 100) - 50;
+        rail.style.transform = `translateX(-${finalOffset + randomShift}px)`;
     }, 50);
 
     setTimeout(() => {
-        const display = document.getElementById("reward-display");
-        display.style.display = "block";
-        const label = document.getElementById("reward-name");
-        label.textContent = currentDrop.name;
-        label.className = currentDrop.r;
+        const winUI = document.getElementById("win-display");
+        winUI.style.display = "block";
+        const txt = document.getElementById("win-text");
+        txt.textContent = lastDrop.name;
+        txt.className = lastDrop.r;
     }, 6500);
 }
 
-function finalizeCollection() {
-    myItems.unshift(currentDrop);
+function closeOpening() {
+    inventory.unshift(lastDrop);
     document.getElementById("opening-screen").style.display = "none";
     document.getElementById("main-menu").style.display = "flex";
     renderInventory();
-    saveProgress();
+    saveGame();
 }
 
 function sellItem(uid) {
-    const idx = myItems.findIndex(i => i.uid === uid);
-    if (idx !== -1) {
-        const price = Math.floor(myItems[idx].p * 0.75);
-        wallet += price;
-        myItems.splice(idx, 1);
-        refreshHUD();
+    const i = inventory.findIndex(x => x.uid === uid);
+    if (i !== -1) {
+        balance += Math.floor(inventory[i].p * 0.75);
+        inventory.splice(i, 1);
+        updateUI();
         renderInventory();
-        saveProgress();
+        saveGame();
     }
 }
 
-function refreshHUD() {
-    document.getElementById("balance-display").textContent = "💎 " + wallet.toLocaleString();
+function updateUI() {
+    document.getElementById("balance-display").textContent = "💎 " + balance.toLocaleString();
 }
 
 function renderInventory() {
     const grid = document.getElementById("inventory-grid");
     grid.innerHTML = "";
-    myItems.forEach(item => {
+    inventory.forEach(item => {
         const slot = document.createElement("div");
-        slot.className = `inventory-slot ${item.r}`;
+        slot.className = `item-slot ${item.r}`;
         slot.onclick = () => sellItem(item.uid);
         slot.innerHTML = `
             ${item.e} 
-            <span class="sell-tag">💎 ${Math.floor(item.p * 0.75).toLocaleString()}</span>
+            <span class="price-label">💎 ${Math.floor(item.p * 0.75).toLocaleString()}</span>
         `;
         grid.appendChild(slot);
     });
 }
 
-function saveProgress() {
-    localStorage.setItem("jewel_sim_v3", JSON.stringify({
-        cash: wallet, 
-        inv: myItems
-    }));
+function saveGame() {
+    localStorage.setItem("jewel_ultra_v1", JSON.stringify({b: balance, i: inventory}));
 }
 
-function loadProgress() {
-    const data = localStorage.getItem("jewel_sim_v3");
+function loadGame() {
+    const data = localStorage.getItem("jewel_ultra_v1");
     if (data) {
         const p = JSON.parse(data);
-        wallet = p.cash;
-        myItems = p.inv;
+        balance = p.b;
+        inventory = p.i;
         renderInventory();
     }
 }
 
-window.onload = initGame;
+window.onload = init;
 </script>
 </body>
 </html>
