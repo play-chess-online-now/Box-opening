@@ -1,448 +1,347 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>💎 Jewel Case Simulator ULTRA PRO</title>
-    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Exo+2:wght@900&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg: #050508;
-            --accent: #00f2ff; [cite: 2]
-            /* Rarity Colors */
-            --Common: #b5bdc9;
-            --Rare: #0077ff;
-            --Epic: #a200ff;
-            --Legendary: #ffaa00;
-            --Mythic: #ff0077; [cite: 3]
-            --Exotic: #00ffa2;
-            --Divine: #ffea00;
-            --Zenith: #ff3c00;
-            
-            /* High Quality Gradients for Boxes */
-            --g-Common: linear-gradient(135deg, #3a3d42 0%, #b5bdc9 100%);
-            --g-Rare: linear-gradient(135deg, #0044ff 0%, #00d4ff 100%);
-            --g-Epic: linear-gradient(135deg, #6a00ff 0%, #e100ff 100%);
-            --g-Legendary: linear-gradient(135deg, #ff8800 0%, #ffd000 100%);
-            --g-Mythic: linear-gradient(135deg, #d5006d 0%, #ff0055 100%);
-            --g-Exotic: linear-gradient(135deg, #00c853 0%, #00ffa2 100%);
-            --g-Divine: linear-gradient(135deg, #ffd600 0%, #fff700 100%);
-            --g-Zenith: linear-gradient(135deg, #ff0000 0%, #ff6a00 100%);
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>💎 Jewel Case Simulator ULTRA</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Exo+2:wght@900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #050508;
+  --accent: #00f2ff;
+  --panel: rgba(255, 255, 255, 0.05);
+  --Common: #b5bdc9; --Rare: #0077ff; --Epic: #a200ff;
+  --Legendary: #ffaa00; --Mythic: #ff0077; --Exotic: #00ffa2;
+  --Divine: #ffea00; --Zenith: #ff3c00;
+}
 
-        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; } [cite: 4]
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
-        body {
-            background: var(--bg); [cite: 5]
-            color: #fff;
-            font-family: 'Rajdhani', sans-serif;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
+body {
+  background: var(--bg);
+  color: #fff;
+  font-family: 'Rajdhani', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
 
-        /* --- FIXED HEADER (NAPRAWA POŁOŻENIA) --- */
-        #top-bar {
-            position: sticky; [cite: 6]
-            top: 0; z-index: 100;
-            padding: 15px 25px;
-            background: rgba(10, 10, 21, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 3px solid var(--accent); [cite: 7]
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center;
-            box-shadow: 0 0 25px rgba(0, 242, 255, 0.4);
-        }
+/* --- NAPRAWIONY HEADER --- */
+#top-bar {
+  position: sticky;
+  top: 0; z-index: 100;
+  padding: 15px 25px;
+  background: #0a0a15;
+  border-bottom: 3px solid var(--accent);
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center;
+  box-shadow: 0 0 25px rgba(0, 242, 255, 0.4);
+}
 
-        #balance-display {
-            font-size: 28px; 
-            font-weight: 700; 
-            color: #ffd700; [cite: 8]
-            text-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
-        }
+#balance-display { font-size: 28px; font-weight: 700; color: #ffd700; }
 
-        .container { 
-            padding: 20px; 
-            max-width: 1200px; 
-            margin: 0 auto; [cite: 8]
-        }
+.container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
 
-        .section-header {
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center;
-            margin: 30px 0 20px 0;
-        }
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 30px 0 20px 0;
+}
 
-        .section-title {
-            font-size: 22px; 
-            text-transform: uppercase; 
-            letter-spacing: 3px;
-            color: var(--accent); 
-            font-weight: 700; 
-            border-left: 5px solid var(--accent); [cite: 9]
-            padding-left: 15px;
-        }
+.section-title {
+  font-size: 22px; text-transform: uppercase; letter-spacing: 3px;
+  color: var(--accent); border-left: 5px solid var(--accent);
+  padding-left: 15px; font-weight: 700;
+}
 
-        /* MINING BUTTON */
-        #mining-btn {
-            background: linear-gradient(45deg, #ffd700, #ffaa00); [cite: 10]
-            border: none; 
-            padding: 12px 25px; 
-            border-radius: 12px;
-            color: #000; 
-            font-weight: 800; 
-            cursor: pointer;
-            transition: 0.2s; 
-            box-shadow: 0 0 20px rgba(255, 170, 0, 0.4);
-            font-family: 'Rajdhani', sans-serif; 
-            text-transform: uppercase; [cite: 11]
-        }
-        #mining-btn:active { transform: scale(0.95); }
+#clicker-btn {
+  background: linear-gradient(45deg, #ffd700, #ffaa00);
+  border: none; padding: 10px 20px; border-radius: 8px;
+  color: #000; font-weight: 800; cursor: pointer;
+  text-transform: uppercase; transition: 0.2s;
+}
+#clicker-btn:active { transform: scale(0.95); }
 
-        /* SHOP GRID (NAPRAWA UKŁADU SIATKI) */
-        #shop-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); [cite: 12]
-            gap: 25px;
-        }
+/* --- NAPRAWIONA SIATKA SKLEPU --- */
+#shop-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)) !important;
+  gap: 20px;
+  width: 100%;
+}
 
-        .case-card {
-            border-radius: 30px;
-            padding: 35px 20px;
-            text-align: center;
-            border: 3px solid rgba(255,255,255,0.1); [cite: 13]
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-            overflow: hidden;
-            background: rgba(255, 255, 255, 0.03);
-        }
+.case-item {
+  background: var(--panel);
+  border-radius: 20px; padding: 30px 15px; text-align: center;
+  border: 2px solid rgba(255,255,255,0.1); cursor: pointer;
+  transition: 0.3s;
+}
+.case-item:hover { transform: translateY(-8px); border-color: var(--accent); }
 
-        .case-card:hover {
-            transform: translateY(-12px) scale(1.03); [cite: 14]
-            border-color: rgba(255,255,255,0.5);
-            z-index: 5;
-        }
+.case-emoji { font-size: 60px; display: block; margin-bottom: 15px; }
+.case-name { font-weight: 700; font-size: 18px; display: block; margin-bottom: 8px; }
+.case-price { color: #ffd700; font-weight: 700; font-size: 16px; }
 
-        .case-emoji {
-            font-size: 80px; 
-            display: block; 
-            margin-bottom: 15px; [cite: 14]
-            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.6));
-            animation: float 3s infinite ease-in-out;
-        }
+/* --- INWENTARZ --- */
+#inventory-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+  gap: 12px;
+  margin-bottom: 50px;
+}
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
+.inv-item {
+  aspect-ratio: 1; border-radius: 15px; display: flex;
+  flex-direction: column; align-items: center; justify-content: center;
+  font-size: 35px; border: 2px solid rgba(255,255,255,0.1);
+  cursor: pointer; position: relative; background: rgba(255,255,255,0.03);
+}
+.inv-item .sell-price {
+    font-size: 10px; position: absolute; bottom: 5px;
+    color: #ffd700; font-weight: 800; background: rgba(0,0,0,0.7);
+    padding: 2px 6px; border-radius: 4px;
+}
 
-        .case-name { 
-            font-size: 20px; 
-            font-weight: 900; 
-            display: block; 
-            margin-bottom: 12px; 
-            letter-spacing: 1px; [cite: 14]
-        }
+/* --- EKRAN OTWIERANIA --- */
+#opening-screen {
+  position: fixed; inset: 0;
+  background: radial-gradient(circle, #1a1a2e 0%, #050508 100%);
+  display: none; flex-direction: column; align-items: center; justify-content: center;
+  z-index: 2000;
+}
 
-        .case-price-tag {
-            background: rgba(0,0,0,0.7); 
-            padding: 6px 18px;
-            border-radius: 50px; 
-            font-size: 16px; 
-            font-weight: 700; [cite: 14]
-            border: 1px solid rgba(255,215,0,0.4); 
-            color: #ffd700;
-        }
+#big-box { font-size: 180px; cursor: pointer; }
 
-        /* INVENTORY GRID */
-        #inventory-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); [cite: 15]
-            gap: 15px; 
-            margin-bottom: 60px;
-        }
+.shake { animation: shakeAnim 0.15s infinite; }
+@keyframes shakeAnim {
+  0% { transform: rotate(0); }
+  25% { transform: rotate(5deg); }
+  75% { transform: rotate(-5deg); }
+}
 
-        .item-slot {
-            aspect-ratio: 1; 
-            border-radius: 20px;
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center; [cite: 16]
-            font-size: 45px; 
-            border: 2px solid rgba(255,255,255,0.1); 
-            cursor: pointer;
-            transition: 0.3s; 
-            position: relative;
-            background: rgba(255,255,255,0.05); [cite: 17]
-        }
-        .item-slot:hover { transform: scale(1.1); border-color: #fff; }
+.explode { animation: explodeAnim 0.5s forwards; }
+@keyframes explodeAnim {
+  100% { transform: scale(5); opacity: 0; filter: brightness(5); }
+}
 
-        .price-tag {
-            font-size: 11px; 
-            position: absolute; 
-            bottom: 8px;
-            color: #ffd700; 
-            font-weight: 800; 
-            background: rgba(0,0,0,0.85); [cite: 18]
-            padding: 3px 8px; 
-            border-radius: 6px;
-        }
+#spinner-wrap { display: none; width: 100%; flex-direction: column; align-items: center; }
+#spinner-container {
+  position: relative; width: 90%; max-width: 600px; height: 140px;
+  background: rgba(0,0,0,0.6); border: 2px solid rgba(255,255,255,0.1);
+  margin: 30px 0; overflow: hidden; border-radius: 15px;
+}
 
-        /* --- OPENING SCREEN --- */
-        #opening-screen {
-            position: fixed; inset: 0; [cite: 19]
-            background: radial-gradient(circle at center, #1a1a2e 0%, #050508 100%);
-            display: none; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center; [cite: 19]
-            z-index: 2000;
-        }
+#spinner-track {
+  display: flex; position: absolute; left: 0; height: 100%;
+  align-items: center; transition: transform 6s cubic-bezier(0.1, 0, 0.05, 1);
+}
 
-        #opening-box { 
-            font-size: 200px; 
-            cursor: pointer; 
-            transition: 0.3s; [cite: 20]
-            filter: drop-shadow(0 0 30px rgba(255,255,255,0.2)); 
-        }
-        
-        .shake { animation: shakeAnim 0.1s infinite; } [cite: 21]
-        @keyframes shakeAnim {
-            0% { transform: translate(0,0); } [cite: 21]
-            50% { transform: translate(8px, 4px) rotate(4deg); }
-            100% { transform: translate(-8px, -4px) rotate(-4deg); } [cite: 22]
-        }
+.spinner-card {
+  min-width: 120px; height: 120px; margin: 0 5px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 60px; background: rgba(255,255,255,0.05); border-radius: 12px;
+}
 
-        .explode { animation: explodeAnim 0.6s forwards; } [cite: 23]
-        @keyframes explodeAnim {
-            0% { transform: scale(1); opacity: 1; } [cite: 23]
-            100% { transform: scale(6); opacity: 0; filter: blur(30px) brightness(10); }
-        }
+#spinner-line {
+  position: absolute; left: 50%; top: 0; width: 4px; height: 100%;
+  background: var(--accent); z-index: 10; transform: translateX(-50%);
+}
 
-        /* SPINNER */
-        #spinner-wrap { display: none; width: 100%; flex-direction: column; align-items: center; } [cite: 24]
-        #spinner-view {
-            position: relative; width: 95%; max-width: 700px; height: 160px; [cite: 25]
-            background: rgba(0,0,0,0.9); border-top: 4px solid var(--accent);
-            border-bottom: 4px solid var(--accent); margin: 40px 0; overflow: hidden;
-            border-radius: 20px;
-        }
-        #spinner-rail {
-            display: flex; position: absolute; left: 0; height: 100%; [cite: 26]
-            align-items: center; transition: transform 6s cubic-bezier(0.1, 0, 0.05, 1); [cite: 27]
-        }
-        .spinner-item {
-            min-width: 140px; height: 140px; margin: 0 10px; [cite: 27]
-            display: flex; align-items: center; justify-content: center;
-            font-size: 70px; background: rgba(255,255,255,0.03);
-            border-radius: 25px; border-bottom: 4px solid transparent; [cite: 28]
-        }
-        #spinner-line {
-            position: absolute; left: 50%; top: 0; width: 6px; height: 100%; [cite: 28]
-            background: var(--accent); z-index: 100; box-shadow: 0 0 25px var(--accent); transform: translateX(-50%); [cite: 29]
-        }
+#claim-area { display: none; text-align: center; }
+#claim-btn {
+  padding: 18px 50px; background: var(--accent); border: none; border-radius: 50px;
+  color: #000; font-weight: 900; font-size: 20px; cursor: pointer;
+}
 
-        #reward-ui { display: none; text-align: center; } [cite: 30]
-        #reward-name { font-size: 45px; font-weight: 900; margin-bottom: 30px; text-transform: uppercase; } [cite: 30]
-        #collect-btn {
-            padding: 22px 80px; background: var(--accent); border: none; border-radius: 100px; [cite: 30]
-            color: #000; font-weight: 900; font-size: 24px; cursor: pointer; [cite: 31]
-            box-shadow: 0 0 40px rgba(0,242,255,0.5); text-transform: uppercase;
-        }
-
-        /* RARITY CLASSES */
-        .Common { border-color: var(--Common) !important; color: var(--Common); } [cite: 32]
-        .Rare { border-color: var(--Rare) !important; color: var(--Rare); } [cite: 32]
-        .Epic { border-color: var(--Epic) !important; color: var(--Epic); } [cite: 33]
-        .Legendary { border-color: var(--Legendary) !important; color: var(--Legendary); } [cite: 33]
-        .Mythic { border-color: var(--Mythic) !important; color: var(--Mythic); } [cite: 33]
-        .Exotic { border-color: var(--Exotic) !important; color: var(--Exotic); } [cite: 34]
-        .Divine { border-color: var(--Divine) !important; color: var(--Divine); } [cite: 34]
-        .Zenith { border-color: var(--Zenith) !important; color: var(--Zenith); text-shadow: 0 0 20px var(--Zenith); } [cite: 35]
-    </style>
+/* KLASY RZADKOŚCI */
+.Common { border-color: var(--Common) !important; color: var(--Common); }
+.Rare { border-color: var(--Rare) !important; color: var(--Rare); }
+.Epic { border-color: var(--Epic) !important; color: var(--Epic); }
+.Legendary { border-color: var(--Legendary) !important; color: var(--Legendary); }
+.Mythic { border-color: var(--Mythic) !important; color: var(--Mythic); }
+.Exotic { border-color: var(--Exotic) !important; color: var(--Exotic); }
+.Divine { border-color: var(--Divine) !important; color: var(--Divine); }
+.Zenith { border-color: var(--Zenith) !important; color: var(--Zenith); text-shadow: 0 0 15px var(--Zenith); }
+</style>
 </head>
 <body>
 
-<div id="main-menu">
-    <div id="top-bar">
-        <div style="font-family: 'Exo 2', sans-serif; font-weight: 900; color: var(--accent); font-size: 24px; letter-spacing: 2px;">JEWEL SIM ULTRA</div>
-        <div id="balance-display">💎 1,000</div> [cite: 36]
-    </div>
+<div id="main-menu" style="display: flex; flex-direction: column;">
+  <div id="top-bar">
+    <div style="font-family: 'Exo 2', sans-serif; font-weight: 900; color: var(--accent); font-size: 22px;">JEWEL SIM ULTRA</div>
+    <div id="balance-display">💎 10,000</div>
+  </div>
 
-    <div class="container">
-        <div class="section-header">
-            <h2 class="section-title">Case Market</h2>
-            <button id="mining-btn" onclick="mineGems()">Mine Diamonds (+10)</button> [cite: 36]
-        </div>
-        <div id="shop-grid"></div>
-
-        <div class="section-header">
-            <h2 class="section-title">Inventory</h2>
-        </div>
-        <div id="inventory-grid"></div> [cite: 36]
+  <div class="container">
+    <div class="section-header">
+        <h2 class="section-title">Case Market</h2>
+        <button id="clicker-btn" onclick="mineGems()">WYKOP DIAMENTY (+10)</button>
     </div>
+    <div id="shop-grid"></div>
+
+    <div class="section-header">
+        <h2 class="section-title">Inventory</h2>
+    </div>
+    <div id="inventory-grid"></div>
+  </div>
 </div>
 
 <div id="opening-screen">
-    <div id="opening-box">📦</div> [cite: 36]
-    <div id="tap-info" style="margin-top: 50px; font-weight: 900; color: #fff; font-size: 28px; letter-spacing: 5px; text-shadow: 0 0 20px rgba(0,0,0,0.5);">CLICK TO OPEN!</div>
-    
-    <div id="spinner-wrap"> [cite: 36]
-        <div id="spinner-view">
-            <div id="spinner-line"></div>
-            <div id="spinner-rail"></div>
-        </div>
-        <div id="reward-ui">
-            <div id="reward-name">ITEM</div> [cite: 37]
-            <button id="collect-btn" onclick="collectReward()">COLLECT</button> [cite: 37]
-        </div>
+  <div id="big-box">📦</div>
+  <div id="tap-info" style="margin-top: 30px; font-weight: 700; color: var(--accent); font-size: 22px;">KLIKNIJ SKRZYNKĘ!</div>
+  
+  <div id="spinner-wrap">
+    <div id="spinner-container">
+      <div id="spinner-line"></div>
+      <div id="spinner-track"></div>
     </div>
+  
+    <div id="claim-area">
+      <div id="win-name" style="font-size: 35px; font-weight: 900; margin-bottom: 20px; text-transform: uppercase;">ITEM</div>
+      <button id="claim-btn" onclick="collectReward()">ODBIERZ I WRÓĆ</button>
+    </div>
+  </div>
 </div>
 
 <script>
-// --- DATABASE ---
 const ITEMS = {
-    "Rusty Nail": {r:"Common", e:"🔩", p:35}, "Old Boot": {r:"Common", e:"🥾", p:50}, "Sharp Stone": {r:"Common", e:"🪨", p:65},
-    "Iron Sword": {r:"Rare", e:"⚔️", p:420}, "Steel Shield": {r:"Rare", e:"🛡️", p:480}, "Hunter Bow": {r:"Rare", e:"🏹", p:550}, [cite: 38]
-    "Magic Wand": {r:"Epic", e:"🪄", p:2800}, "Sea Trident": {r:"Epic", e:"🔱", p:3200}, "Heavy Axe": {r:"Epic", e:"🪓", p:3800}, [cite: 38]
-    "Royal Crown": {r:"Legendary", e:"👑", p:22000}, "Ancient Key": {r:"Legendary", e:"🔑", p:28000}, [cite: 38]
-    "Fire Phoenix": {r:"Mythic", e:"🐦‍🔥", p:280000}, "Void Dragon": {r:"Mythic", e:"🐉", p:550000}, [cite: 38]
-    "Singularity": {r:"Exotic", e:"🕳️", p:2200000}, "Nebula Core": {r:"Exotic", e:"🌀", p:3800000}, [cite: 38]
-    "Divine Wings": {r:"Divine", e:"🪽", p:15000000}, "Holy Grail": {r:"Divine", e:"⚱️", p:35000000}, [cite: 38]
-    "Infinity Eye": {r:"Zenith", e:"👁️", p:100000000}, "God Scepter": {r:"Zenith", e:"🔱", p:200000000} [cite: 38]
+  "Stick": {r:"Common", e:"🪵", p:50}, "Shoe": {r:"Common", e:"👞", p:50}, "Bone": {r:"Common", e:"🦴", p:50},
+  "Sword": {r:"Rare", e:"⚔️", p:300}, "Shield": {r:"Rare", e:"🛡️", p:300}, "Bow": {r:"Rare", e:"🏹", p:300},
+  "Orb": {r:"Epic", e:"🔮", p:1500}, "Trident": {r:"Epic", e:"🔱", p:1500}, "Axe": {r:"Epic", e:"🪓", p:1500},
+  "Crown": {r:"Legendary", e:"👑", p:10000}, "Key": {r:"Legendary", e:"🔑", p:10000},
+  "Phoenix": {r:"Mythic", e:"🐦‍🔥", p:150000}, "Void Serpent": {r:"Mythic", e:"🐍", p:300000},
+  "Black Hole": {r:"Exotic", e:"🕳️", p:900000}, "Cosmic Vortex": {r:"Exotic", e:"🌀", p:1300000},
+  "Angel Wings": {r:"Divine", e:"🪽", p:5000000}, "Holy Grail": {r:"Divine", e:"⚱️", p:15000000},
+  "Infinity Core": {r:"Zenith", e:"🌌", p:50000000}, "Godly Scepter": {r:"Zenith", e:"🔱", p:60000000}
 };
 
 const CASES = {
-    "WOODEN": {cost:100, e:"📦", r:"Common", drops:["Rusty Nail", "Old Boot", "Sharp Stone", "Iron Sword"]}, [cite: 39]
-    "IRON": {cost:1000, e:"📦", r:"Rare", drops:["Iron Sword", "Steel Shield", "Hunter Bow", "Magic Wand"]}, [cite: 39]
-    "STEEL": {cost:5000, e:"🧰", r:"Rare", drops:["Steel Shield", "Magic Wand", "Sea Trident", "Heavy Axe"]}, [cite: 39]
-    "SILVER": {cost:25000, e:"🧰", r:"Epic", drops:["Magic Wand", "Sea Trident", "Royal Crown", "Ancient Key"]}, [cite: 39]
-    "GOLDEN": {cost:120000, e:"💼", r:"Legendary", drops:["Royal Crown", "Ancient Key", "Fire Phoenix"]}, [cite: 39]
-    "VOID": {cost:600000, e:"💼", r:"Mythic", drops:["Fire Phoenix", "Void Dragon", "Singularity"]}, [cite: 39]
-    "COSMIC": {cost:3000000, e:"💼", r:"Exotic", drops:["Void Dragon", "Singularity", "Nebula Core"]}, [cite: 39]
-    "DIVINE": {cost:20000000, e:"🎁", r:"Divine", drops:["Nebula Core", "Divine Wings", "Holy Grail", "Infinity Eye"]}, [cite: 39]
-    "OMEGA": {cost:100000000, e:"🎁", r:"Zenith", drops:["Holy Grail", "Infinity Eye", "God Scepter"]} [cite: 39]
+  "Wooden": {cost:100, e:"📦", drops:["Stick", "Shoe", "Bone", "Sword"]},
+  "Iron": {cost:500, e:"📫", drops:["Sword", "Shield", "Bow", "Orb"]},
+  "Bronze": {cost:2000, e:"🏺", drops:["Shield", "Orb", "Trident", "Axe"]},
+  "Silver": {cost:10000, e:"🎁", drops:["Orb", "Axe", "Crown", "Key"]},
+  "Gold": {cost:50000, e:"💝", drops:["Crown", "Key", "Phoenix"]},
+  "Legendary": {cost:250000, e:"🌟", drops:["Phoenix", "Void Serpent", "Black Hole"]},
+  "Mythic": {cost:1000000, e:"🔥", drops:["Void Serpent", "Black Hole", "Cosmic Vortex"]},
+  "Divine": {cost:5000000, e:"☀️", drops:["Cosmic Vortex", "Angel Wings", "Holy Grail", "Infinity Core"]},
+  "Omega": {cost:25000000, e:"🧬", drops:["Holy Grail", "Infinity Core", "Godly Scepter"]}
 };
 
-let balance = 1000; [cite: 40]
+let balance = 10000;
 let inventory = [];
 let pendingDrop = null;
 
 function init() {
-    const shop = document.getElementById("shop-grid"); [cite: 41]
-    shop.innerHTML = "";
-    Object.keys(CASES).forEach(name => {
-        const c = CASES[name];
-        const card = document.createElement("div");
-        card.className = `case-card ${c.r}`; [cite: 42]
-        card.onclick = () => buyCase(name);
-        card.innerHTML = `
-            <span class="case-emoji">${c.e}</span>
-            <span class="case-name">${name} CASE</span>
-            <span class="case-price-tag">💎 ${c.cost.toLocaleString()}</span>
-        `;
-        shop.appendChild(card);
-    });
-    loadGame(); [cite: 42]
-    updateUI();
-}
-
-function mineGems() { money += 10; updateUI(); saveGame(); } [cite: 43]
-
-function buyCase(name) {
+  const shop = document.getElementById("shop-grid");
+  shop.innerHTML = "";
+  Object.keys(CASES).forEach(name => {
     const c = CASES[name];
-    if (money < c.cost) return alert("Insufficient diamonds!"); [cite: 44]
-    
-    money -= c.cost; [cite: 44]
-    const pool = c.drops;
-    const dropName = pool[Math.floor(Math.random() * pool.length)]; [cite: 45]
-    pendingDrop = { name: dropName, ...ITEMS[dropName], id: Date.now() + Math.random() }; [cite: 45]
-    
-    document.getElementById("main-menu").style.display = "none"; [cite: 46]
-    const screen = document.getElementById("opening-screen");
-    screen.style.display = "flex";
-    
-    const box = document.getElementById("opening-box"); [cite: 47]
-    box.style.display = "block";
-    box.textContent = c.e;
-    box.className = c.r;
-    box.onclick = handleBoxClick;
-    
-    document.getElementById("tap-info").style.display = "block";
-    document.getElementById("spinner-wrap").style.display = "none"; [cite: 47]
-    document.getElementById("reward-ui").style.display = "none";
+    const div = document.createElement("div");
+    div.className = "case-item";
+    div.onclick = () => buyCase(name);
+    div.innerHTML = `<span class="case-emoji">${c.e}</span><span class="case-name">${name}</span><span class="case-price">💎 ${c.cost.toLocaleString()}</span>`;
+    shop.appendChild(div);
+  });
+  loadGame();
+  updateUI();
+}
+
+function mineGems() {
+    balance += 10;
     updateUI();
-}
-
-function handleBoxClick() {
-    const box = document.getElementById("opening-box"); [cite: 48]
-    box.onclick = null;
-    box.classList.add("shake");
-    document.getElementById("tap-info").style.display = "none";
-    
-    setTimeout(() => {
-        box.classList.remove("shake"); [cite: 49]
-        box.classList.add("explode");
-        setTimeout(() => {
-            box.style.display = "none";
-            box.classList.remove("explode");
-            showSpinner();
-        }, 550);
-    }, 1100);
-}
-
-function showSpinner() {
-    const wrap = document.getElementById("spinner-wrap"); [cite: 50]
-    const rail = document.getElementById("spinner-rail");
-    wrap.style.display = "flex";
-    rail.innerHTML = ""; [cite: 50]
-    rail.style.transition = "none";
-    rail.style.transform = "translateX(0)";
-
-    const winIdx = 35;
-    const allKeys = Object.keys(ITEMS); [cite: 51]
-    
-    for (let i = 0; i < 60; i++) { [cite: 52]
-        const data = (i === winIdx) ? pendingDrop : ITEMS[allKeys[Math.floor(Math.random() * allKeys.length)]];
-        const card = document.createElement("div");
-        card.className = `spinner-item ${data.r}`; [cite: 53]
-        card.innerHTML = data.e;
-        rail.appendChild(card);
-    }
-
-    const itemW = 160; 
-    const viewW = document.getElementById("spinner-view").offsetWidth; [cite: 54]
-    const offset = (winIdx * itemW) - (viewW / 2) + (itemW / 2);
-    
-    setTimeout(() => {
-        rail.style.transition = "transform 6s cubic-bezier(0.1, 0, 0.05, 1)"; [cite: 55]
-        const microShift = (Math.random() * 60) - 30;
-        rail.style.transform = `translateX(-${offset + microShift}px)`;
-    }, 50);
-
-    setTimeout(() => {
-        document.getElementById("reward-ui").style.display = "block"; [cite: 56]
-        const txt = document.getElementById("reward-name");
-        txt.textContent = pendingDrop.name;
-        txt.className = pendingDrop.r;
-    }, 6600);
-}
-
-function collectReward() {
-    inventory.unshift(pendingDrop); [cite: 57]
-    document.getElementById("opening-screen").style.display = "none";
-    document.getElementById("main-menu").style.display = "flex";
-    updateInventoryUI(); [cite: 57]
     saveGame();
 }
 
+function buyCase(name) {
+  const c = CASES[name];
+  if(balance < c.cost) return alert("Za mało klejnotów!");
+  balance -= c.cost;
+  const pool = c.drops;
+  const dropName = pool[Math.floor(Math.random() * pool.length)];
+  pendingDrop = { name: dropName, ...ITEMS[dropName], id: Date.now() };
+  
+  document.getElementById("main-menu").style.display = "none";
+  document.getElementById("opening-screen").style.display = "flex";
+  const box = document.getElementById("big-box");
+  box.style.display = "block";
+  box.textContent = c.e;
+  box.onclick = handleBoxClick;
+  
+  document.getElementById("tap-info").style.display = "block";
+  document.getElementById("spinner-wrap").style.display = "none";
+  document.getElementById("claim-area").style.display = "none";
+  updateUI();
+}
+
+function handleBoxClick() {
+  const box = document.getElementById("big-box");
+  box.onclick = null;
+  box.classList.add("shake");
+  document.getElementById("tap-info").style.display = "none";
+  setTimeout(() => {
+    box.classList.remove("shake");
+    box.classList.add("explode");
+    setTimeout(() => {
+      box.style.display = "none";
+      box.classList.remove("explode");
+      showSpinner();
+    }, 450);
+  }, 1000);
+}
+
+function showSpinner() {
+  const wrap = document.getElementById("spinner-wrap");
+  const track = document.getElementById("spinner-track");
+  wrap.style.display = "flex";
+  track.innerHTML = "";
+  track.style.transition = "none";
+  track.style.transform = "translateX(0)";
+
+  const winIdx = 30;
+  const keys = Object.keys(ITEMS);
+  for(let i=0; i<45; i++) {
+    const item = (i === winIdx) ? pendingDrop : ITEMS[keys[Math.floor(Math.random()*keys.length)]];
+    const card = document.createElement("div");
+    card.className = `spinner-card ${item.r}`;
+    card.innerHTML = item.e;
+    track.appendChild(card);
+  }
+
+  const cardWidth = 130;
+  const centerOffset = (winIdx * cardWidth) - (window.innerWidth / 2) + (cardWidth / 2);
+  setTimeout(() => {
+    track.style.transition = "transform 6s cubic-bezier(0.1, 0, 0.05, 1)";
+    track.style.transform = `translateX(-${centerOffset + (Math.random()*40-20)}px)`;
+  }, 50);
+
+  setTimeout(() => {
+    document.getElementById("claim-area").style.display = "block";
+    const nameLabel = document.getElementById("win-name");
+    nameLabel.textContent = pendingDrop.name;
+    nameLabel.className = pendingDrop.r;
+  }, 6500);
+}
+
+function collectReward() {
+  inventory.unshift(pendingDrop);
+  document.getElementById("opening-screen").style.display = "none";
+  // WYMUSZENIE UKŁADU FLEX DLA MENU
+  const menu = document.getElementById("main-menu");
+  menu.style.display = "flex";
+  updateInventoryUI();
+  saveGame();
+}
+
 function sellItem(id) {
-    const index = inventory.findIndex(item => item.id === id); [cite: 58]
-    if (index !== -1) { [cite: 59]
-        money += Math.floor(inventory[index].p * 0.75); [cite: 60]
+    const index = inventory.findIndex(item => item.id === id);
+    if (index !== -1) {
+        balance += Math.floor(inventory[index].p * 0.75);
         inventory.splice(index, 1);
         updateUI();
         updateInventoryUI();
@@ -451,29 +350,33 @@ function sellItem(id) {
 }
 
 function updateUI() {
-    document.getElementById("balance-display").textContent = "💎 " + money.toLocaleString(); [cite: 61]
+  document.getElementById("balance-display").textContent = "💎 " + balance.toLocaleString();
 }
 
 function updateInventoryUI() {
-    const grid = document.getElementById("inventory-grid"); [cite: 62]
-    grid.innerHTML = "";
-    inventory.forEach(item => {
-        const div = document.createElement("div");
-        div.className = `item-slot ${item.r}`; [cite: 62]
-        div.onclick = () => sellItem(item.id);
-        div.innerHTML = `${item.e} <span class="price-tag">💎 ${Math.floor(item.p * 0.75).toLocaleString()}</span>`;
-        grid.appendChild(div);
-    });
+  const grid = document.getElementById("inventory-grid");
+  grid.innerHTML = "";
+  inventory.forEach(item => {
+    const div = document.createElement("div");
+    div.className = `inv-item ${item.r}`;
+    div.onclick = () => sellItem(item.id);
+    div.innerHTML = `${item.e} <span class="sell-price">💎 ${Math.floor(item.p * 0.75).toLocaleString()}</span>`;
+    grid.appendChild(div);
+  });
 }
 
-function saveGame() { localStorage.setItem("jewel_sim_ultra_v6", JSON.stringify({m: money, i: inventory})); } [cite: 63]
+function saveGame() {
+  localStorage.setItem("jewel_sim_final_ultra", JSON.stringify({b: balance, i: inventory}));
+}
+
 function loadGame() {
-    const data = localStorage.getItem("jewel_sim_ultra_v6");
-    if (data) {
-        const p = JSON.parse(data);
-        money = p.m; inventory = p.i;
-        updateInventoryUI();
-    }
+  const data = localStorage.getItem("jewel_sim_final_ultra");
+  if(data) {
+    const parsed = JSON.parse(data);
+    balance = parsed.b;
+    inventory = parsed.i;
+    updateInventoryUI();
+  }
 }
 
 window.onload = init;
