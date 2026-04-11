@@ -7,9 +7,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Exo+2:wght@900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #030305;
+            --bg: #050508;
             --accent: #00f2ff;
-            /* Rarity Colors with Gradients */
+            /* Rarity Colors */
             --Common: #b5bdc9;
             --Rare: #0077ff;
             --Epic: #a200ff;
@@ -19,22 +19,17 @@
             --Divine: #ffea00;
             --Zenith: #ff3c00;
             
-            --grad-Common: linear-gradient(135deg, #2c2f33 0%, #4f545c 100%);
-            --grad-Rare: linear-gradient(135deg, #003366 0%, #0077ff 100%);
-            --grad-Epic: linear-gradient(135deg, #440066 0%, #a200ff 100%);
-            --grad-Legendary: linear-gradient(135deg, #664400 0%, #ffaa00 100%);
-            --grad-Mythic: linear-gradient(135deg, #660033 0%, #ff0077 100%);
-            --grad-Exotic: linear-gradient(135deg, #006644 0%, #00ffa2 100%);
-            --grad-Divine: linear-gradient(135deg, #665500 0%, #ffea00 100%);
-            --grad-Zenith: linear-gradient(135deg, #661100 0%, #ff3c00 100%);
+            --g-Common: linear-gradient(135deg, #2c2f33 0%, #4f545c 100%);
+            --g-Rare: linear-gradient(135deg, #003366 0%, #0077ff 100%);
+            --g-Epic: linear-gradient(135deg, #440066 0%, #a200ff 100%);
+            --g-Legendary: linear-gradient(135deg, #664400 0%, #ffaa00 100%);
+            --g-Mythic: linear-gradient(135deg, #660033 0%, #ff0077 100%);
+            --g-Exotic: linear-gradient(135deg, #006644 0%, #00ffa2 100%);
+            --g-Divine: linear-gradient(135deg, #665500 0%, #ffea00 100%);
+            --g-Zenith: linear-gradient(135deg, #661100 0%, #ff3c00 100%);
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            -webkit-tap-highlight-color: transparent;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
         body {
             background: var(--bg);
@@ -46,302 +41,187 @@
 
         /* --- HEADER --- */
         #top-bar {
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            position: sticky; top: 0; z-index: 100;
             padding: 15px 25px;
             background: rgba(10, 10, 20, 0.95);
             backdrop-filter: blur(10px);
-            border-bottom: 2px solid var(--accent);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 0 20px rgba(0, 242, 255, 0.2);
+            border-bottom: 3px solid var(--accent);
+            display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 0 20px rgba(0, 242, 255, 0.3);
         }
 
         #balance-display {
-            font-size: 28px;
-            font-weight: 700;
-            color: #ffd700;
+            font-size: 28px; font-weight: 700; color: #ffd700;
             text-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
         }
 
-        /* --- CONTENT --- */
-        .container {
-            padding: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+        .container { padding: 20px; max-width: 1200px; margin: 0 auto; }
 
         .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            display: flex; justify-content: space-between; align-items: center;
             margin: 30px 0 20px 0;
-            padding-bottom: 10px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
         .section-title {
-            font-size: 22px;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            color: var(--accent);
-            font-weight: 700;
+            font-size: 24px; text-transform: uppercase; letter-spacing: 3px;
+            color: var(--accent); font-weight: 700; border-left: 5px solid var(--accent);
+            padding-left: 15px;
         }
 
-        /* Mining Button */
+        /* BUTTONS */
         #mining-btn {
             background: linear-gradient(45deg, #ffd700, #ffaa00);
-            border: none;
-            padding: 12px 24px;
-            border-radius: 12px;
-            color: #000;
-            font-weight: 800;
-            cursor: pointer;
-            font-family: 'Rajdhani', sans-serif;
-            transition: 0.2s;
-            box-shadow: 0 0 20px rgba(255, 170, 0, 0.4);
-            text-transform: uppercase;
+            border: none; padding: 12px 25px; border-radius: 12px;
+            color: #000; font-weight: 800; cursor: pointer;
+            transition: 0.2s; box-shadow: 0 0 20px rgba(255, 170, 0, 0.4);
+            font-family: 'Rajdhani', sans-serif; text-transform: uppercase;
         }
+        #mining-btn:active { transform: scale(0.95); }
 
-        #mining-btn:active {
-            transform: scale(0.9) rotate(-2deg);
-        }
-
-        /* Shop Grid */
+        /* SHOP GRID */
         #shop-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 25px;
         }
 
         .case-card {
-            border-radius: 24px;
+            border-radius: 25px;
             padding: 30px 20px;
             text-align: center;
             border: 2px solid rgba(255,255,255,0.1);
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.3s ease;
             position: relative;
-            animation: float 4s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
         }
 
         .case-card:hover {
-            transform: scale(1.05) translateY(-15px) !important;
-            z-index: 10;
-            filter: brightness(1.3);
+            transform: translateY(-10px) scale(1.05);
+            filter: brightness(1.2);
+            z-index: 5;
         }
 
         .case-emoji {
-            font-size: 70px;
-            display: block;
-            margin-bottom: 15px;
-            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.5));
+            font-size: 80px; display: block; margin-bottom: 15px;
+            filter: drop-shadow(0 10px 10px rgba(0,0,0,0.5));
+            animation: pulseEmoji 3s infinite ease-in-out;
         }
 
-        .case-name {
-            font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 10px;
-            display: block;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        @keyframes pulseEmoji {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
         }
+
+        .case-name { font-size: 20px; font-weight: 700; display: block; margin-bottom: 10px; }
 
         .case-price-tag {
-            background: rgba(0,0,0,0.5);
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: 700;
-            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(0,0,0,0.6); padding: 5px 15px;
+            border-radius: 50px; font-size: 15px; font-weight: 700;
+            border: 1px solid rgba(255,255,255,0.3);
         }
 
-        /* Inventory */
+        /* INVENTORY */
         #inventory-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-            gap: 15px;
+            gap: 15px; margin-bottom: 50px;
         }
 
         .item-slot {
-            aspect-ratio: 1;
-            background: rgba(255,255,255,0.03);
-            border-radius: 18px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            font-size: 45px;
-            border: 2px solid rgba(255,255,255,0.1);
-            cursor: pointer;
-            transition: 0.3s;
-            position: relative;
+            aspect-ratio: 1; border-radius: 20px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            font-size: 45px; border: 2px solid transparent; cursor: pointer;
+            transition: 0.3s; position: relative;
+            background: rgba(255,255,255,0.05);
         }
+        .item-slot:hover { transform: scale(1.1); z-index: 2; }
 
-        .item-slot:hover {
-            transform: scale(1.1);
-            background: rgba(255,255,255,0.08);
-        }
-
-        .price-label {
-            font-size: 11px;
-            position: absolute;
-            bottom: 8px;
-            color: #ffd700;
-            font-weight: 700;
-            background: rgba(0,0,0,0.8);
-            padding: 2px 8px;
-            border-radius: 6px;
+        .price-tag {
+            font-size: 11px; position: absolute; bottom: 8px;
+            color: #ffd700; font-weight: 700; background: rgba(0,0,0,0.8);
+            padding: 2px 8px; border-radius: 6px;
         }
 
         /* --- OPENING SCREEN --- */
         #opening-screen {
-            position: fixed;
-            inset: 0;
-            background: radial-gradient(circle at center, #111122 0%, #030305 100%);
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            position: fixed; inset: 0;
+            background: radial-gradient(circle at center, #151525 0%, #050508 100%);
+            display: none; flex-direction: column; align-items: center; justify-content: center;
             z-index: 2000;
         }
 
-        #opening-box {
-            font-size: 220px;
-            cursor: pointer;
-            filter: drop-shadow(0 0 50px rgba(255,255,255,0.2));
-            transition: 0.3s;
+        #opening-box { font-size: 220px; cursor: pointer; transition: 0.3s; }
+        
+        .shake { animation: shakeAnim 0.1s infinite; }
+        @keyframes shakeAnim {
+            0% { transform: rotate(0); }
+            50% { transform: rotate(5deg) scale(1.1); }
+            100% { transform: rotate(-5deg); }
         }
 
-        .shake-box { animation: shake 0.1s infinite; }
-        @keyframes shake {
-            0% { transform: translate(0,0); }
-            50% { transform: translate(10px, 5px) rotate(5deg); }
-            100% { transform: translate(-10px, -5px) rotate(-5deg); }
+        .explode { animation: explodeAnim 0.5s forwards; }
+        @keyframes explodeAnim {
+            100% { transform: scale(5); opacity: 0; filter: blur(20px) brightness(5); }
         }
 
-        .explode-box { animation: explode 0.5s forwards; }
-        @keyframes explode {
-            0% { transform: scale(1); opacity: 1; }
-            100% { transform: scale(6); opacity: 0; filter: brightness(5) blur(20px); }
-        }
-
-        /* SPINNER */
-        #spinner-wrap {
-            display: none;
-            width: 100%;
-            flex-direction: column;
-            align-items: center;
-        }
-
+        /* ROULETTE */
+        #spinner-wrap { display: none; width: 100%; flex-direction: column; align-items: center; }
         #spinner-view {
-            position: relative;
-            width: 100%;
-            height: 180px;
-            background: rgba(0,0,0,0.6);
-            border-top: 3px solid var(--accent);
-            border-bottom: 3px solid var(--accent);
-            margin: 40px 0;
-            overflow: hidden;
+            position: relative; width: 100%; height: 180px;
+            background: rgba(0,0,0,0.8); border-top: 3px solid var(--accent);
+            border-bottom: 3px solid var(--accent); margin: 40px 0; overflow: hidden;
         }
-
         #spinner-rail {
-            display: flex;
-            position: absolute;
-            left: 0;
-            height: 100%;
-            align-items: center;
-            transition: transform 6s cubic-bezier(0.05, 0, 0.05, 1);
+            display: flex; position: absolute; left: 0; height: 100%;
+            align-items: center; transition: transform 6s cubic-bezier(0.05, 0, 0.05, 1);
         }
-
         .spinner-item {
-            min-width: 150px;
-            height: 150px;
-            margin: 0 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 80px;
-            background: rgba(255,255,255,0.03);
-            border-radius: 20px;
-            border: 3px solid transparent;
+            min-width: 150px; height: 150px; margin: 0 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 80px; background: rgba(255,255,255,0.05);
+            border-radius: 25px; border: 3px solid transparent;
+        }
+        #spinner-line {
+            position: absolute; left: 50%; top: 0; width: 6px; height: 100%;
+            background: #fff; z-index: 100; box-shadow: 0 0 20px #fff; transform: translateX(-50%);
         }
 
-        #center-line {
-            position: absolute;
-            left: 50%;
-            top: 0;
-            width: 6px;
-            height: 100%;
-            background: #fff;
-            z-index: 100;
-            box-shadow: 0 0 20px #fff;
-            transform: translateX(-50%);
+        #reward-ui { display: none; text-align: center; }
+        #reward-name { font-size: 45px; font-weight: 900; margin-bottom: 30px; text-transform: uppercase; }
+        #collect-btn {
+            padding: 20px 80px; background: #fff; border: none; border-radius: 100px;
+            color: #000; font-weight: 900; font-size: 24px; cursor: pointer;
+            box-shadow: 0 0 30px rgba(255,255,255,0.4); text-transform: uppercase;
         }
 
-        #win-display {
-            display: none;
-            text-align: center;
-            animation: fadeIn 0.8s forwards;
-        }
-
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        #win-text {
-            font-size: 48px;
-            font-weight: 900;
-            margin-bottom: 30px;
-            text-transform: uppercase;
-            letter-spacing: 5px;
-        }
-
-        #claim-btn {
-            padding: 22px 70px;
-            background: #fff;
-            border: none;
-            border-radius: 100px;
-            color: #000;
-            font-weight: 900;
-            font-size: 24px;
-            cursor: pointer;
-            box-shadow: 0 0 40px rgba(255,255,255,0.3);
-            text-transform: uppercase;
-        }
-
-        /* --- RARITY CLASSES --- */
-        .Common { background: var(--grad-Common); border-color: var(--Common); box-shadow: 0 0 20px rgba(181, 189, 201, 0.3); color: var(--Common); text-shadow: 0 0 10px var(--Common); }
-        .Rare { background: var(--grad-Rare); border-color: var(--Rare); box-shadow: 0 0 25px rgba(0, 119, 255, 0.4); color: var(--Rare); text-shadow: 0 0 10px var(--Rare); }
-        .Epic { background: var(--grad-Epic); border-color: var(--Epic); box-shadow: 0 0 30px rgba(162, 0, 255, 0.5); color: var(--Epic); text-shadow: 0 0 10px var(--Epic); }
-        .Legendary { background: var(--grad-Legendary); border-color: var(--Legendary); box-shadow: 0 0 35px rgba(255, 170, 0, 0.6); color: var(--Legendary); text-shadow: 0 0 10px var(--Legendary); }
-        .Mythic { background: var(--grad-Mythic); border-color: var(--Mythic); box-shadow: 0 0 40px rgba(255, 0, 119, 0.7); color: var(--Mythic); text-shadow: 0 0 15px var(--Mythic); }
-        .Exotic { background: var(--grad-Exotic); border-color: var(--Exotic); box-shadow: 0 0 45px rgba(0, 255, 162, 0.8); color: var(--Exotic); text-shadow: 0 0 15px var(--Exotic); }
-        .Divine { background: var(--grad-Divine); border-color: var(--Divine); box-shadow: 0 0 50px rgba(255, 234, 0, 0.9); color: var(--Divine); text-shadow: 0 0 20px var(--Divine); }
-        .Zenith { background: var(--grad-Zenith); border-color: var(--Zenith); box-shadow: 0 0 60px rgba(255, 60, 0, 1); color: var(--Zenith); text-shadow: 0 0 25px var(--Zenith); }
+        /* RARITY SYSTEM */
+        .Common { background: var(--g-Common); border-color: var(--Common); box-shadow: 0 0 20px rgba(181,189,201,0.3); color: var(--Common); text-shadow: 0 0 10px var(--Common); }
+        .Rare { background: var(--g-Rare); border-color: var(--Rare); box-shadow: 0 0 25px rgba(0,119,255,0.4); color: var(--Rare); text-shadow: 0 0 10px var(--Rare); }
+        .Epic { background: var(--g-Epic); border-color: var(--Epic); box-shadow: 0 0 30px rgba(162,0,255,0.5); color: var(--Epic); text-shadow: 0 0 10px var(--Epic); }
+        .Legendary { background: var(--g-Legendary); border-color: var(--Legendary); box-shadow: 0 0 35px rgba(255,170,0,0.6); color: var(--Legendary); text-shadow: 0 0 10px var(--Legendary); }
+        .Mythic { background: var(--g-Mythic); border-color: var(--Mythic); box-shadow: 0 0 40px rgba(255,0,119,0.7); color: var(--Mythic); text-shadow: 0 0 15px var(--Mythic); }
+        .Exotic { background: var(--g-Exotic); border-color: var(--Exotic); box-shadow: 0 0 45px rgba(0,255,162,0.8); color: var(--Exotic); text-shadow: 0 0 15px var(--Exotic); }
+        .Divine { background: var(--g-Divine); border-color: var(--Divine); box-shadow: 0 0 50px rgba(255,234,0,0.9); color: var(--Divine); text-shadow: 0 0 20px var(--Divine); }
+        .Zenith { background: var(--g-Zenith); border-color: var(--Zenith); box-shadow: 0 0 60px rgba(255,60,0,1); color: var(--Zenith); text-shadow: 0 0 30px var(--Zenith); }
     </style>
 </head>
 <body>
 
 <div id="main-menu">
     <div id="top-bar">
-        <div style="font-family: 'Exo 2', sans-serif; font-weight: 900; color: var(--accent); font-size: 24px;">JEWEL SIM ULTRA</div>
-        <div id="balance-display">💎 10,000</div>
+        <div style="font-family: 'Exo 2', sans-serif; font-weight: 900; color: var(--accent); font-size: 24px; letter-spacing: 1px;">CASE SIMULATOR ULTRA</div>
+        <div id="balance-display">💎 1,000</div>
     </div>
 
     <div class="container">
         <div class="section-header">
-            <h2 class="section-title">Market</h2>
-            <button id="mining-btn" onclick="mineGems()">Mine Diamonds (+10)</button>
+            <h2 class="section-title">Case Market</h2>
+            <button id="mining-btn" onclick="mine()">Mine Diamonds (+10)</button>
         </div>
         <div id="shop-grid"></div>
 
         <div class="section-header">
-            <h2 class="section-title">Your Inventory</h2>
+            <h2 class="section-title">Inventory</h2>
         </div>
         <div id="inventory-grid"></div>
     </div>
@@ -349,49 +229,48 @@
 
 <div id="opening-screen">
     <div id="opening-box">📦</div>
-    <div id="click-info" style="margin-top: 50px; font-weight: 700; color: #fff; font-size: 28px; letter-spacing: 5px;">TAP TO OPEN</div>
+    <div id="tap-info" style="margin-top: 50px; font-weight: 700; color: #fff; font-size: 26px; letter-spacing: 3px;">TAP TO CRACK IT!</div>
     
     <div id="spinner-wrap">
         <div id="spinner-view">
-            <div id="center-line"></div>
+            <div id="spinner-line"></div>
             <div id="spinner-rail"></div>
         </div>
-      
-        <div id="win-display">
-            <div id="win-text">ITEM</div>
-            <button id="claim-btn" onclick="closeOpening()">COLLECT</button>
+        <div id="reward-ui">
+            <div id="reward-name">ITEM</div>
+            <button id="collect-btn" onclick="collect()">COLLECT AND RETURN</button>
         </div>
     </div>
 </div>
 
 <script>
-// --- FULL DATABASE ---
+// --- DATABASE ---
 const ITEMS = {
-    "Rusty Nail": {r:"Common", e:"🔩", p:30}, "Old Boot": {r:"Common", e:"🥾", p:40}, "Rock": {r:"Common", e:"🪨", p:50},
-    "Iron Sword": {r:"Rare", e:"⚔️", p:350}, "Guard Shield": {r:"Rare", e:"🛡️", p:400}, "Long Bow": {r:"Rare", e:"🏹", p:450},
-    "Mana Orb": {r:"Epic", e:"🔮", p:2000}, "Deep Trident": {r:"Epic", e:"🔱", p:2500}, "Battle Axe": {r:"Epic", e:"🪓", p:2800},
-    "Golden Crown": {r:"Legendary", e:"👑", p:15000}, "Master Key": {r:"Legendary", e:"🔑", p:18000},
-    "Solar Phoenix": {r:"Mythic", e:"🐦‍🔥", p:200000}, "Void Serpent": {r:"Mythic", e:"🐍", p:400000},
-    "Black Hole": {r:"Exotic", e:"🕳️", p:1500000}, "Cosmos Vortex": {r:"Exotic", e:"🌀", p:2500000},
-    "Divine Wings": {r:"Divine", e:"🪽", p:10000000}, "Holy Grail": {r:"Divine", e:"⚱️", p:25000000},
-    "Infinity Core": {r:"Zenith", e:"🌌", p:80000000}, "Godly Scepter": {r:"Zenith", e:"🔱", p:120000000}
+    "Rusty Nail": {r:"Common", e:"🔩", p:30}, "Old Boot": {r:"Common", e:"🥾", p:45}, "Sharp Stone": {r:"Common", e:"🪨", p:60},
+    "Iron Sword": {r:"Rare", e:"⚔️", p:400}, "Steel Shield": {r:"Rare", e:"🛡️", p:450}, "Hunter Bow": {r:"Rare", e:"🏹", p:500},
+    "Magic Wand": {r:"Epic", e:"🪄", p:2500}, "Sea Trident": {r:"Epic", e:"🔱", p:3000}, "Heavy Axe": {r:"Epic", e:"🪓", p:3500},
+    "Royal Crown": {r:"Legendary", e:"👑", p:20000}, "Ancient Key": {r:"Legendary", e:"🔑", p:25000},
+    "Fire Phoenix": {r:"Mythic", e:"🐦‍🔥", p:250000}, "Void Dragon": {r:"Mythic", e:"🐉", p:500000},
+    "Singularity": {r:"Exotic", e:"🕳️", p:2000000}, "Nebula Core": {r:"Exotic", e:"🌀", p:3500000},
+    "Divine Wings": {r:"Divine", e:"🪽", p:12000000}, "Holy Grail": {r:"Divine", e:"⚱️", p:30000000},
+    "Infinity Eye": {r:"Zenith", e:"👁️", p:90000000}, "God Scepter": {r:"Zenith", e:"🔱", p:150000000}
 };
 
 const CASES = {
-    "Basic": {cost:100, e:"📦", r:"Common", drops:["Rusty Nail", "Old Boot", "Rock", "Iron Sword"]},
-    "Soldier": {cost:700, e:"🧰", r:"Rare", drops:["Iron Sword", "Guard Shield", "Long Bow", "Mana Orb"]},
-    "Knight": {cost:3000, e:"🧰", r:"Rare", drops:["Guard Shield", "Mana Orb", "Deep Trident", "Battle Axe"]},
-    "Sorcerer": {cost:15000, e:"💎", r:"Epic", drops:["Mana Orb", "Deep Trident", "Golden Crown", "Master Key"]},
-    "King": {cost:75000, e:"💎", r:"Legendary", drops:["Golden Crown", "Master Key", "Solar Phoenix"]},
-    "Void": {cost:350000, e:"🏆", r:"Legendary", drops:["Solar Phoenix", "Void Serpent", "Black Hole"]},
-    "Galactic": {cost:1800000, e:"🏆", r:"Mythic", drops:["Void Serpent", "Black Hole", "Cosmos Vortex"]},
-    "Ascended": {cost:10000000, e:"🎁", r:"Divine", drops:["Cosmos Vortex", "Divine Wings", "Holy Grail", "Infinity Core"]},
-    "Omega": {cost:50000000, e:"🎁", r:"Zenith", drops:["Holy Grail", "Infinity Core", "Godly Scepter"]}
+    "WOODEN": {cost:100, e:"📦", r:"Common", drops:["Rusty Nail", "Old Boot", "Sharp Stone", "Iron Sword"]},
+    "IRON": {cost:800, e:"📦", r:"Rare", drops:["Iron Sword", "Steel Shield", "Hunter Bow", "Magic Wand"]},
+    "STEEL": {cost:4000, e:"🧰", r:"Rare", drops:["Steel Shield", "Magic Wand", "Sea Trident", "Heavy Axe"]},
+    "SILVER": {cost:20000, e:"🧰", r:"Epic", drops:["Magic Wand", "Sea Trident", "Royal Crown", "Ancient Key"]},
+    "GOLDEN": {cost:100000, e:"💼", r:"Legendary", drops:["Royal Crown", "Ancient Key", "Fire Phoenix"]},
+    "VOID": {cost:500000, e:"💼", r:"Mythic", drops:["Fire Phoenix", "Void Dragon", "Singularity"]},
+    "COSMIC": {cost:2500000, e:"💼", r:"Exotic", drops:["Void Dragon", "Singularity", "Nebula Core"]},
+    "DIVINE": {cost:15000000, e:"🎁", r:"Divine", drops:["Nebula Core", "Divine Wings", "Holy Grail", "Infinity Eye"]},
+    "OMEGA": {cost:75000000, e:"🎁", r:"Zenith", drops:["Holy Grail", "Infinity Eye", "God Scepter"]}
 };
 
-let balance = 10000;
-let inventory = [];
-let lastDrop = null;
+let money = 1000;
+let inv = [];
+let pending = null;
 
 function init() {
     const shop = document.getElementById("shop-grid");
@@ -399,32 +278,28 @@ function init() {
         const c = CASES[name];
         const card = document.createElement("div");
         card.className = `case-card ${c.r}`;
-        card.onclick = () => startPurchase(name);
+        card.onclick = () => buy(name);
         card.innerHTML = `
             <span class="case-emoji">${c.e}</span>
-            <span class="case-name">${name} Case</span>
+            <span class="case-name">${name} CASE</span>
             <span class="case-price-tag">💎 ${c.cost.toLocaleString()}</span>
         `;
         shop.appendChild(card);
     });
-    loadGame();
-    updateUI();
+    load();
+    update();
 }
 
-function mineGems() {
-    balance += 10;
-    updateUI();
-    saveGame();
-}
+function mine() { money += 10; update(); save(); }
 
-function startPurchase(name) {
+function buy(name) {
     const c = CASES[name];
-    if (balance < c.cost) return alert("You need more diamonds!");
+    if (money < c.cost) return alert("Not enough Diamonds!");
     
-    balance -= c.cost;
+    money -= c.cost;
     const pool = c.drops;
-    const itemName = pool[Math.floor(Math.random() * pool.length)];
-    lastDrop = { name: itemName, ...ITEMS[itemName], uid: Date.now() + Math.random() };
+    const dropName = pool[Math.floor(Math.random() * pool.length)];
+    pending = { name: dropName, ...ITEMS[dropName], id: Date.now() + Math.random() };
     
     document.getElementById("main-menu").style.display = "none";
     const screen = document.getElementById("opening-screen");
@@ -434,33 +309,32 @@ function startPurchase(name) {
     box.style.display = "block";
     box.textContent = c.e;
     box.className = c.r;
-    box.onclick = triggerOpening;
+    box.onclick = startOpening;
     
-    document.getElementById("click-info").style.display = "block";
+    document.getElementById("tap-info").style.display = "block";
     document.getElementById("spinner-wrap").style.display = "none";
-    document.getElementById("win-display").style.display = "none";
-    
-    updateUI();
+    document.getElementById("reward-ui").style.display = "none";
+    update();
 }
 
-function triggerOpening() {
+function startOpening() {
     const box = document.getElementById("opening-box");
     box.onclick = null;
-    box.classList.add("shake-box");
-    document.getElementById("click-info").style.display = "none";
+    box.classList.add("shake");
+    document.getElementById("tap-info").style.display = "none";
     
     setTimeout(() => {
-        box.classList.remove("shake-box");
-        box.classList.add("explode-box");
+        box.classList.remove("shake");
+        box.classList.add("explode");
         setTimeout(() => {
             box.style.display = "none";
-            box.classList.remove("explode-box");
-            startSpinner();
+            box.classList.remove("explode");
+            runSpinner();
         }, 450);
     }, 1000);
 }
 
-function startSpinner() {
+function runSpinner() {
     const wrap = document.getElementById("spinner-wrap");
     const rail = document.getElementById("spinner-rail");
     wrap.style.display = "flex";
@@ -468,85 +342,76 @@ function startSpinner() {
     rail.style.transition = "none";
     rail.style.transform = "translateX(0)";
 
-    const winIndex = 35;
-    const keys = Object.keys(ITEMS);
+    const winIdx = 35;
+    const allKeys = Object.keys(ITEMS);
     
     for (let i = 0; i < 50; i++) {
-        const data = (i === winIndex) ? lastDrop : ITEMS[keys[Math.floor(Math.random() * keys.length)]];
+        const data = (i === winIdx) ? pending : ITEMS[allKeys[Math.floor(Math.random() * allKeys.length)]];
         const card = document.createElement("div");
         card.className = `spinner-item ${data.r}`;
         card.innerHTML = data.e;
         rail.appendChild(card);
     }
 
-    const itemWidth = 166; // 150 width + 16 margins
-    const viewWidth = document.getElementById("spinner-view").offsetWidth;
-    const finalOffset = (winIndex * itemWidth) - (viewWidth / 2) + (itemWidth / 2);
+    const itemW = 170; // 150 + 20 margin
+    const viewW = document.getElementById("spinner-view").offsetWidth;
+    const offset = (winIdx * itemW) - (viewW / 2) + (itemW / 2);
     
     setTimeout(() => {
         rail.style.transition = "transform 6s cubic-bezier(0.05, 0, 0.05, 1)";
-        const randomShift = (Math.random() * 100) - 50;
-        rail.style.transform = `translateX(-${finalOffset + randomShift}px)`;
+        rail.style.transform = `translateX(-${offset + (Math.random()*80 - 40)}px)`;
     }, 50);
 
     setTimeout(() => {
-        const winUI = document.getElementById("win-display");
-        winUI.style.display = "block";
-        const txt = document.getElementById("win-text");
-        txt.textContent = lastDrop.name;
-        txt.className = lastDrop.r;
+        document.getElementById("reward-ui").style.display = "block";
+        const txt = document.getElementById("reward-name");
+        txt.textContent = pending.name;
+        txt.className = pending.r;
     }, 6500);
 }
 
-function closeOpening() {
-    inventory.unshift(lastDrop);
+function collect() {
+    inv.unshift(pending);
     document.getElementById("opening-screen").style.display = "none";
     document.getElementById("main-menu").style.display = "flex";
-    renderInventory();
-    saveGame();
+    renderInv();
+    save();
 }
 
-function sellItem(uid) {
-    const i = inventory.findIndex(x => x.uid === uid);
+function sell(id) {
+    const i = inv.findIndex(x => x.id === id);
     if (i !== -1) {
-        balance += Math.floor(inventory[i].p * 0.75);
-        inventory.splice(i, 1);
-        updateUI();
-        renderInventory();
-        saveGame();
+        money += Math.floor(inv[i].p * 0.75);
+        inv.splice(i, 1);
+        update();
+        renderInv();
+        save();
     }
 }
 
-function updateUI() {
-    document.getElementById("balance-display").textContent = "💎 " + balance.toLocaleString();
+function update() {
+    document.getElementById("balance-display").textContent = "💎 " + money.toLocaleString();
 }
 
-function renderInventory() {
+function renderInv() {
     const grid = document.getElementById("inventory-grid");
     grid.innerHTML = "";
-    inventory.forEach(item => {
-        const slot = document.createElement("div");
-        slot.className = `item-slot ${item.r}`;
-        slot.onclick = () => sellItem(item.uid);
-        slot.innerHTML = `
-            ${item.e} 
-            <span class="price-label">💎 ${Math.floor(item.p * 0.75).toLocaleString()}</span>
-        `;
-        grid.appendChild(slot);
+    inv.forEach(item => {
+        const div = document.createElement("div");
+        div.className = `item-slot ${item.r}`;
+        div.onclick = () => sell(item.id);
+        div.innerHTML = `${item.e} <span class="price-tag">💎 ${Math.floor(item.p * 0.75).toLocaleString()}</span>`;
+        grid.appendChild(div);
     });
 }
 
-function saveGame() {
-    localStorage.setItem("jewel_ultra_v1", JSON.stringify({b: balance, i: inventory}));
-}
-
-function loadGame() {
-    const data = localStorage.getItem("jewel_ultra_v1");
+function save() { localStorage.setItem("box_sim_v5", JSON.stringify({m: money, i: inv})); }
+function load() {
+    const data = localStorage.getItem("box_sim_v5");
     if (data) {
         const p = JSON.parse(data);
-        balance = p.b;
-        inventory = p.i;
-        renderInventory();
+        money = p.m; inv = p.i;
+        renderInv();
     }
 }
 
