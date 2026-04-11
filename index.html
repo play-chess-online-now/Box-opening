@@ -19,14 +19,15 @@
             --Divine: #ffea00;
             --Zenith: #ff3c00;
             
-            --g-Common: linear-gradient(135deg, #2c2f33 0%, #4f545c 100%);
-            --g-Rare: linear-gradient(135deg, #003366 0%, #0077ff 100%);
-            --g-Epic: linear-gradient(135deg, #440066 0%, #a200ff 100%);
-            --g-Legendary: linear-gradient(135deg, #664400 0%, #ffaa00 100%);
-            --g-Mythic: linear-gradient(135deg, #660033 0%, #ff0077 100%);
-            --g-Exotic: linear-gradient(135deg, #006644 0%, #00ffa2 100%);
-            --g-Divine: linear-gradient(135deg, #665500 0%, #ffea00 100%);
-            --g-Zenith: linear-gradient(135deg, #661100 0%, #ff3c00 100%);
+            /* High Quality Gradients for Boxes */
+            --g-Common: linear-gradient(135deg, #3a3d42 0%, #b5bdc9 100%);
+            --g-Rare: linear-gradient(135deg, #0044ff 0%, #00d4ff 100%);
+            --g-Epic: linear-gradient(135deg, #6a00ff 0%, #e100ff 100%);
+            --g-Legendary: linear-gradient(135deg, #ff8800 0%, #ffd000 100%);
+            --g-Mythic: linear-gradient(135deg, #d5006d 0%, #ff0055 100%);
+            --g-Exotic: linear-gradient(135deg, #00c853 0%, #00ffa2 100%);
+            --g-Divine: linear-gradient(135deg, #ffd600 0%, #fff700 100%);
+            --g-Zenith: linear-gradient(135deg, #ff0000 0%, #ff6a00 100%);
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
@@ -47,11 +48,11 @@
             backdrop-filter: blur(10px);
             border-bottom: 3px solid var(--accent);
             display: flex; justify-content: space-between; align-items: center;
-            box-shadow: 0 0 20px rgba(0, 242, 255, 0.3);
+            box-shadow: 0 0 25px rgba(0, 242, 255, 0.4);
         }
 
         #balance-display {
-            font-size: 28px; font-weight: 700; color: #ffd700;
+            font-size: 30px; font-weight: 700; color: #ffd700;
             text-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
         }
 
@@ -68,7 +69,7 @@
             padding-left: 15px;
         }
 
-        /* BUTTONS */
+        /* MINING BUTTON */
         #mining-btn {
             background: linear-gradient(45deg, #ffd700, #ffaa00);
             border: none; padding: 12px 25px; border-radius: 12px;
@@ -76,7 +77,7 @@
             transition: 0.2s; box-shadow: 0 0 20px rgba(255, 170, 0, 0.4);
             font-family: 'Rajdhani', sans-serif; text-transform: uppercase;
         }
-        #mining-btn:active { transform: scale(0.95); }
+        #mining-btn:active { transform: scale(0.95) rotate(2deg); }
 
         /* SHOP GRID */
         #shop-grid {
@@ -86,130 +87,145 @@
         }
 
         .case-card {
-            border-radius: 25px;
-            padding: 30px 20px;
+            border-radius: 30px;
+            padding: 35px 20px;
             text-align: center;
-            border: 2px solid rgba(255,255,255,0.1);
+            border: 3px solid rgba(255,255,255,0.1);
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
+            overflow: hidden;
         }
 
         .case-card:hover {
-            transform: translateY(-10px) scale(1.05);
-            filter: brightness(1.2);
+            transform: translateY(-12px) scale(1.03);
+            border-color: rgba(255,255,255,0.5);
             z-index: 5;
         }
 
+        /* Shiny Overlay */
+        .case-card::before {
+            content: ''; position: absolute; top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: rotate(45deg); transition: 0.5s;
+        }
+        .case-card:hover::before { left: 100%; }
+
         .case-emoji {
-            font-size: 80px; display: block; margin-bottom: 15px;
-            filter: drop-shadow(0 10px 10px rgba(0,0,0,0.5));
-            animation: pulseEmoji 3s infinite ease-in-out;
+            font-size: 85px; display: block; margin-bottom: 15px;
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.6));
+            animation: float 3s infinite ease-in-out;
         }
 
-        @keyframes pulseEmoji {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
 
-        .case-name { font-size: 20px; font-weight: 700; display: block; margin-bottom: 10px; }
+        .case-name { font-size: 22px; font-weight: 900; display: block; margin-bottom: 12px; letter-spacing: 1px; }
 
         .case-price-tag {
-            background: rgba(0,0,0,0.6); padding: 5px 15px;
-            border-radius: 50px; font-size: 15px; font-weight: 700;
-            border: 1px solid rgba(255,255,255,0.3);
+            background: rgba(0,0,0,0.7); padding: 6px 18px;
+            border-radius: 50px; font-size: 16px; font-weight: 700;
+            border: 1px solid rgba(255,255,255,0.2); color: #fff;
         }
 
         /* INVENTORY */
         #inventory-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-            gap: 15px; margin-bottom: 50px;
+            grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+            gap: 15px; margin-bottom: 60px;
         }
 
         .item-slot {
             aspect-ratio: 1; border-radius: 20px;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            font-size: 45px; border: 2px solid transparent; cursor: pointer;
+            font-size: 48px; border: 2px solid transparent; cursor: pointer;
             transition: 0.3s; position: relative;
             background: rgba(255,255,255,0.05);
         }
-        .item-slot:hover { transform: scale(1.1); z-index: 2; }
+        .item-slot:hover { transform: scale(1.1) rotate(3deg); z-index: 2; }
 
         .price-tag {
-            font-size: 11px; position: absolute; bottom: 8px;
-            color: #ffd700; font-weight: 700; background: rgba(0,0,0,0.8);
-            padding: 2px 8px; border-radius: 6px;
+            font-size: 12px; position: absolute; bottom: 8px;
+            color: #ffd700; font-weight: 800; background: rgba(0,0,0,0.85);
+            padding: 3px 10px; border-radius: 8px; border: 1px solid rgba(255,215,0,0.3);
         }
 
         /* --- OPENING SCREEN --- */
         #opening-screen {
             position: fixed; inset: 0;
-            background: radial-gradient(circle at center, #151525 0%, #050508 100%);
+            background: radial-gradient(circle at center, #1a1a2e 0%, #050508 100%);
             display: none; flex-direction: column; align-items: center; justify-content: center;
             z-index: 2000;
         }
 
-        #opening-box { font-size: 220px; cursor: pointer; transition: 0.3s; }
+        #opening-box { font-size: 240px; cursor: pointer; transition: 0.3s; filter: drop-shadow(0 0 30px rgba(255,255,255,0.2)); }
         
         .shake { animation: shakeAnim 0.1s infinite; }
         @keyframes shakeAnim {
-            0% { transform: rotate(0); }
-            50% { transform: rotate(5deg) scale(1.1); }
-            100% { transform: rotate(-5deg); }
+            0% { transform: translate(0,0); }
+            50% { transform: translate(8px, 4px) rotate(4deg); }
+            100% { transform: translate(-8px, -4px) rotate(-4deg); }
         }
 
-        .explode { animation: explodeAnim 0.5s forwards; }
+        .explode { animation: explodeAnim 0.6s forwards cubic-bezier(0.6, -0.28, 0.735, 0.045); }
         @keyframes explodeAnim {
-            100% { transform: scale(5); opacity: 0; filter: blur(20px) brightness(5); }
+            100% { transform: scale(8); opacity: 0; filter: blur(30px) brightness(10); }
         }
 
-        /* ROULETTE */
+        /* SPINNER */
         #spinner-wrap { display: none; width: 100%; flex-direction: column; align-items: center; }
         #spinner-view {
-            position: relative; width: 100%; height: 180px;
-            background: rgba(0,0,0,0.8); border-top: 3px solid var(--accent);
-            border-bottom: 3px solid var(--accent); margin: 40px 0; overflow: hidden;
+            position: relative; width: 100%; height: 200px;
+            background: rgba(0,0,0,0.9); border-top: 4px solid var(--accent);
+            border-bottom: 4px solid var(--accent); margin: 40px 0; overflow: hidden;
+            box-shadow: 0 0 50px rgba(0,0,0,1) inset;
         }
         #spinner-rail {
             display: flex; position: absolute; left: 0; height: 100%;
             align-items: center; transition: transform 6s cubic-bezier(0.05, 0, 0.05, 1);
         }
         .spinner-item {
-            min-width: 150px; height: 150px; margin: 0 10px;
+            min-width: 160px; height: 160px; margin: 0 12px;
             display: flex; align-items: center; justify-content: center;
-            font-size: 80px; background: rgba(255,255,255,0.05);
-            border-radius: 25px; border: 3px solid transparent;
+            font-size: 90px; background: rgba(255,255,255,0.03);
+            border-radius: 30px; border: 4px solid transparent;
         }
         #spinner-line {
             position: absolute; left: 50%; top: 0; width: 6px; height: 100%;
-            background: #fff; z-index: 100; box-shadow: 0 0 20px #fff; transform: translateX(-50%);
+            background: #fff; z-index: 100; box-shadow: 0 0 25px #fff; transform: translateX(-50%);
         }
 
-        #reward-ui { display: none; text-align: center; }
-        #reward-name { font-size: 45px; font-weight: 900; margin-bottom: 30px; text-transform: uppercase; }
+        #reward-ui { display: none; text-align: center; animation: rewardPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        @keyframes rewardPop { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+        #reward-name { font-size: 50px; font-weight: 900; margin-bottom: 35px; text-transform: uppercase; letter-spacing: 2px; }
         #collect-btn {
-            padding: 20px 80px; background: #fff; border: none; border-radius: 100px;
-            color: #000; font-weight: 900; font-size: 24px; cursor: pointer;
-            box-shadow: 0 0 30px rgba(255,255,255,0.4); text-transform: uppercase;
+            padding: 22px 90px; background: #fff; border: none; border-radius: 100px;
+            color: #000; font-weight: 900; font-size: 26px; cursor: pointer;
+            box-shadow: 0 0 40px rgba(255,255,255,0.5); text-transform: uppercase;
+            transition: 0.3s;
         }
+        #collect-btn:hover { transform: scale(1.1); box-shadow: 0 0 60px rgba(255,255,255,0.8); }
 
-        /* RARITY SYSTEM */
-        .Common { background: var(--g-Common); border-color: var(--Common); box-shadow: 0 0 20px rgba(181,189,201,0.3); color: var(--Common); text-shadow: 0 0 10px var(--Common); }
-        .Rare { background: var(--g-Rare); border-color: var(--Rare); box-shadow: 0 0 25px rgba(0,119,255,0.4); color: var(--Rare); text-shadow: 0 0 10px var(--Rare); }
-        .Epic { background: var(--g-Epic); border-color: var(--Epic); box-shadow: 0 0 30px rgba(162,0,255,0.5); color: var(--Epic); text-shadow: 0 0 10px var(--Epic); }
-        .Legendary { background: var(--g-Legendary); border-color: var(--Legendary); box-shadow: 0 0 35px rgba(255,170,0,0.6); color: var(--Legendary); text-shadow: 0 0 10px var(--Legendary); }
-        .Mythic { background: var(--g-Mythic); border-color: var(--Mythic); box-shadow: 0 0 40px rgba(255,0,119,0.7); color: var(--Mythic); text-shadow: 0 0 15px var(--Mythic); }
-        .Exotic { background: var(--g-Exotic); border-color: var(--Exotic); box-shadow: 0 0 45px rgba(0,255,162,0.8); color: var(--Exotic); text-shadow: 0 0 15px var(--Exotic); }
-        .Divine { background: var(--g-Divine); border-color: var(--Divine); box-shadow: 0 0 50px rgba(255,234,0,0.9); color: var(--Divine); text-shadow: 0 0 20px var(--Divine); }
-        .Zenith { background: var(--g-Zenith); border-color: var(--Zenith); box-shadow: 0 0 60px rgba(255,60,0,1); color: var(--Zenith); text-shadow: 0 0 30px var(--Zenith); }
+        /* RARITY SYSTEM - COLORS & GLOWS */
+        .Common { background: var(--g-Common); border-color: var(--Common); box-shadow: 0 0 20px rgba(181,189,201,0.4); color: var(--Common); text-shadow: 0 0 10px var(--Common); }
+        .Rare { background: var(--g-Rare); border-color: var(--Rare); box-shadow: 0 0 25px rgba(0,119,255,0.5); color: var(--Rare); text-shadow: 0 0 10px var(--Rare); }
+        .Epic { background: var(--g-Epic); border-color: var(--Epic); box-shadow: 0 0 30px rgba(162,0,255,0.6); color: var(--Epic); text-shadow: 0 0 10px var(--Epic); }
+        .Legendary { background: var(--g-Legendary); border-color: var(--Legendary); box-shadow: 0 0 35px rgba(255,170,0,0.7); color: var(--Legendary); text-shadow: 0 0 15px var(--Legendary); }
+        .Mythic { background: var(--g-Mythic); border-color: var(--Mythic); box-shadow: 0 0 45px rgba(255,0,119,0.8); color: var(--Mythic); text-shadow: 0 0 20px var(--Mythic); }
+        .Exotic { background: var(--g-Exotic); border-color: var(--Exotic); box-shadow: 0 0 50px rgba(0,255,162,0.9); color: var(--Exotic); text-shadow: 0 0 20px var(--Exotic); }
+        .Divine { background: var(--g-Divine); border-color: var(--Divine); box-shadow: 0 0 60px rgba(255,234,0,1); color: var(--Divine); text-shadow: 0 0 25px var(--Divine); }
+        .Zenith { background: var(--g-Zenith); border-color: var(--Zenith); box-shadow: 0 0 80px rgba(255,60,0,1); color: var(--Zenith); text-shadow: 0 0 30px var(--Zenith); }
     </style>
 </head>
 <body>
 
 <div id="main-menu">
     <div id="top-bar">
-        <div style="font-family: 'Exo 2', sans-serif; font-weight: 900; color: var(--accent); font-size: 24px; letter-spacing: 1px;">CASE SIMULATOR ULTRA</div>
+        <div style="font-family: 'Exo 2', sans-serif; font-weight: 900; color: var(--accent); font-size: 26px; letter-spacing: 2px;">CASE SIMULATOR ULTRA</div>
         <div id="balance-display">💎 1,000</div>
     </div>
 
@@ -229,7 +245,7 @@
 
 <div id="opening-screen">
     <div id="opening-box">📦</div>
-    <div id="tap-info" style="margin-top: 50px; font-weight: 700; color: #fff; font-size: 26px; letter-spacing: 3px;">TAP TO CRACK IT!</div>
+    <div id="tap-info" style="margin-top: 50px; font-weight: 900; color: #fff; font-size: 32px; letter-spacing: 5px; text-shadow: 0 0 20px rgba(0,0,0,0.5);">CLICK TO OPEN!</div>
     
     <div id="spinner-wrap">
         <div id="spinner-view">
@@ -238,34 +254,35 @@
         </div>
         <div id="reward-ui">
             <div id="reward-name">ITEM</div>
-            <button id="collect-btn" onclick="collect()">COLLECT AND RETURN</button>
+            <button id="collect-btn" onclick="collect()">COLLECT</button>
         </div>
     </div>
 </div>
 
 <script>
-// --- DATABASE ---
+// --- FULL ITEM DATABASE ---
 const ITEMS = {
-    "Rusty Nail": {r:"Common", e:"🔩", p:30}, "Old Boot": {r:"Common", e:"🥾", p:45}, "Sharp Stone": {r:"Common", e:"🪨", p:60},
-    "Iron Sword": {r:"Rare", e:"⚔️", p:400}, "Steel Shield": {r:"Rare", e:"🛡️", p:450}, "Hunter Bow": {r:"Rare", e:"🏹", p:500},
-    "Magic Wand": {r:"Epic", e:"🪄", p:2500}, "Sea Trident": {r:"Epic", e:"🔱", p:3000}, "Heavy Axe": {r:"Epic", e:"🪓", p:3500},
-    "Royal Crown": {r:"Legendary", e:"👑", p:20000}, "Ancient Key": {r:"Legendary", e:"🔑", p:25000},
-    "Fire Phoenix": {r:"Mythic", e:"🐦‍🔥", p:250000}, "Void Dragon": {r:"Mythic", e:"🐉", p:500000},
-    "Singularity": {r:"Exotic", e:"🕳️", p:2000000}, "Nebula Core": {r:"Exotic", e:"🌀", p:3500000},
-    "Divine Wings": {r:"Divine", e:"🪽", p:12000000}, "Holy Grail": {r:"Divine", e:"⚱️", p:30000000},
-    "Infinity Eye": {r:"Zenith", e:"👁️", p:90000000}, "God Scepter": {r:"Zenith", e:"🔱", p:150000000}
+    "Rusty Nail": {r:"Common", e:"🔩", p:35}, "Old Boot": {r:"Common", e:"🥾", p:50}, "Sharp Stone": {r:"Common", e:"🪨", p:65},
+    "Iron Sword": {r:"Rare", e:"⚔️", p:420}, "Steel Shield": {r:"Rare", e:"🛡️", p:480}, "Hunter Bow": {r:"Rare", e:"🏹", p:550},
+    "Magic Wand": {r:"Epic", e:"🪄", p:2800}, "Sea Trident": {r:"Epic", e:"🔱", p:3200}, "Heavy Axe": {r:"Epic", e:"🪓", p:3800},
+    "Royal Crown": {r:"Legendary", e:"👑", p:22000}, "Ancient Key": {r:"Legendary", e:"🔑", p:28000},
+    "Fire Phoenix": {r:"Mythic", e:"🐦‍🔥", p:280000}, "Void Dragon": {r:"Mythic", e:"🐉", p:550000},
+    "Singularity": {r:"Exotic", e:"🕳️", p:2200000}, "Nebula Core": {r:"Exotic", e:"🌀", p:3800000},
+    "Divine Wings": {r:"Divine", e:"🪽", p:15000000}, "Holy Grail": {r:"Divine", e:"⚱️", p:35000000},
+    "Infinity Eye": {r:"Zenith", e:"👁️", p:100000000}, "God Scepter": {r:"Zenith", e:"🔱", p:200000000}
 };
 
+// --- CASES DATABASE (NOW WITH UNIQUE BOX EMOJIS AND CORRECT COLORS) ---
 const CASES = {
     "WOODEN": {cost:100, e:"📦", r:"Common", drops:["Rusty Nail", "Old Boot", "Sharp Stone", "Iron Sword"]},
-    "IRON": {cost:800, e:"📦", r:"Rare", drops:["Iron Sword", "Steel Shield", "Hunter Bow", "Magic Wand"]},
-    "STEEL": {cost:4000, e:"🧰", r:"Rare", drops:["Steel Shield", "Magic Wand", "Sea Trident", "Heavy Axe"]},
-    "SILVER": {cost:20000, e:"🧰", r:"Epic", drops:["Magic Wand", "Sea Trident", "Royal Crown", "Ancient Key"]},
-    "GOLDEN": {cost:100000, e:"💼", r:"Legendary", drops:["Royal Crown", "Ancient Key", "Fire Phoenix"]},
-    "VOID": {cost:500000, e:"💼", r:"Mythic", drops:["Fire Phoenix", "Void Dragon", "Singularity"]},
-    "COSMIC": {cost:2500000, e:"💼", r:"Exotic", drops:["Void Dragon", "Singularity", "Nebula Core"]},
-    "DIVINE": {cost:15000000, e:"🎁", r:"Divine", drops:["Nebula Core", "Divine Wings", "Holy Grail", "Infinity Eye"]},
-    "OMEGA": {cost:75000000, e:"🎁", r:"Zenith", drops:["Holy Grail", "Infinity Eye", "God Scepter"]}
+    "IRON": {cost:1000, e:"📦", r:"Rare", drops:["Iron Sword", "Steel Shield", "Hunter Bow", "Magic Wand"]},
+    "STEEL": {cost:5000, e:"🧰", r:"Rare", drops:["Steel Shield", "Magic Wand", "Sea Trident", "Heavy Axe"]},
+    "SILVER": {cost:25000, e:"🧰", r:"Epic", drops:["Magic Wand", "Sea Trident", "Royal Crown", "Ancient Key"]},
+    "GOLDEN": {cost:120000, e:"💼", r:"Legendary", drops:["Royal Crown", "Ancient Key", "Fire Phoenix"]},
+    "VOID": {cost:600000, e:"💼", r:"Mythic", drops:["Fire Phoenix", "Void Dragon", "Singularity"]},
+    "COSMIC": {cost:3000000, e:"💼", r:"Exotic", drops:["Void Dragon", "Singularity", "Nebula Core"]},
+    "DIVINE": {cost:20000000, e:"🎁", r:"Divine", drops:["Nebula Core", "Divine Wings", "Holy Grail", "Infinity Eye"]},
+    "OMEGA": {cost:100000000, e:"🎁", r:"Zenith", drops:["Holy Grail", "Infinity Eye", "God Scepter"]}
 };
 
 let money = 1000;
@@ -274,6 +291,7 @@ let pending = null;
 
 function init() {
     const shop = document.getElementById("shop-grid");
+    shop.innerHTML = "";
     Object.keys(CASES).forEach(name => {
         const c = CASES[name];
         const card = document.createElement("div");
@@ -294,7 +312,7 @@ function mine() { money += 10; update(); save(); }
 
 function buy(name) {
     const c = CASES[name];
-    if (money < c.cost) return alert("Not enough Diamonds!");
+    if (money < c.cost) return alert("Insufficient diamonds!");
     
     money -= c.cost;
     const pool = c.drops;
@@ -330,8 +348,8 @@ function startOpening() {
             box.style.display = "none";
             box.classList.remove("explode");
             runSpinner();
-        }, 450);
-    }, 1000);
+        }, 550);
+    }, 1100);
 }
 
 function runSpinner() {
@@ -345,7 +363,7 @@ function runSpinner() {
     const winIdx = 35;
     const allKeys = Object.keys(ITEMS);
     
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 60; i++) {
         const data = (i === winIdx) ? pending : ITEMS[allKeys[Math.floor(Math.random() * allKeys.length)]];
         const card = document.createElement("div");
         card.className = `spinner-item ${data.r}`;
@@ -353,13 +371,14 @@ function runSpinner() {
         rail.appendChild(card);
     }
 
-    const itemW = 170; // 150 + 20 margin
+    const itemW = 184; // 160 width + 24 margins
     const viewW = document.getElementById("spinner-view").offsetWidth;
     const offset = (winIdx * itemW) - (viewW / 2) + (itemW / 2);
     
     setTimeout(() => {
         rail.style.transition = "transform 6s cubic-bezier(0.05, 0, 0.05, 1)";
-        rail.style.transform = `translateX(-${offset + (Math.random()*80 - 40)}px)`;
+        const microShift = (Math.random() * 80) - 40;
+        rail.style.transform = `translateX(-${offset + microShift}px)`;
     }, 50);
 
     setTimeout(() => {
@@ -367,7 +386,7 @@ function runSpinner() {
         const txt = document.getElementById("reward-name");
         txt.textContent = pending.name;
         txt.className = pending.r;
-    }, 6500);
+    }, 6600);
 }
 
 function collect() {
@@ -405,9 +424,9 @@ function renderInv() {
     });
 }
 
-function save() { localStorage.setItem("box_sim_v5", JSON.stringify({m: money, i: inv})); }
+function save() { localStorage.setItem("box_sim_v6_final", JSON.stringify({m: money, i: inv})); }
 function load() {
-    const data = localStorage.getItem("box_sim_v5");
+    const data = localStorage.getItem("box_sim_v6_final");
     if (data) {
         const p = JSON.parse(data);
         money = p.m; inv = p.i;
