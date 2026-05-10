@@ -65,6 +65,8 @@
             display: flex;
             justify-content: space-between; align-items: center;
             margin: 30px 0 20px 0;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .section-title {
@@ -74,6 +76,14 @@
             padding-left: 15px;
         }
 
+        /* Mining buttons group */
+        #mining-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
         #mining-btn {
             background: linear-gradient(45deg, #ffd700, #ffaa00);
             border: none; padding: 12px 25px; border-radius: 12px;
@@ -81,8 +91,50 @@
             transition: 0.2s;
             box-shadow: 0 0 20px rgba(255, 170, 0, 0.4);
             font-family: 'Rajdhani', sans-serif; text-transform: uppercase;
+            font-size: 15px;
         }
         #mining-btn:active { transform: scale(0.95) rotate(2deg); }
+
+        #upgrade-btn {
+            background: linear-gradient(45deg, #00c3ff, #00f2ff);
+            border: none; padding: 12px 20px; border-radius: 12px;
+            color: #000; font-weight: 800; cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 0 20px rgba(0, 242, 255, 0.4);
+            font-family: 'Rajdhani', sans-serif; text-transform: uppercase;
+            font-size: 14px;
+            white-space: nowrap;
+        }
+        #upgrade-btn:active { transform: scale(0.95); }
+        #upgrade-btn:disabled {
+            opacity: 0.45;
+            cursor: not-allowed;
+            filter: grayscale(0.5);
+        }
+
+        /* --- AUTO MINER BUTTON --- */
+        #auto-miner-btn {
+            background: linear-gradient(45deg, #7b00ff, #e100ff);
+            border: none; padding: 12px 20px; border-radius: 12px;
+            color: #fff; font-weight: 800; cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 0 20px rgba(162, 0, 255, 0.5);
+            font-family: 'Rajdhani', sans-serif; text-transform: uppercase;
+            font-size: 14px;
+            white-space: nowrap;
+        }
+        #auto-miner-btn:active { transform: scale(0.95); }
+        #auto-miner-btn:disabled {
+            opacity: 0.45;
+            cursor: not-allowed;
+            filter: grayscale(0.5);
+        }
+        #auto-miner-btn.active {
+            background: linear-gradient(45deg, #00c853, #00ffa2);
+            color: #000;
+            box-shadow: 0 0 25px rgba(0, 255, 162, 0.6);
+            cursor: default;
+        }
 
         /* SHOP GRID */
         #shop-grid {
@@ -143,7 +195,7 @@
         #inventory-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
-            gap: 15px; margin-bottom: 60px;
+            gap: 15px; margin-bottom: 30px;
         }
 
         .item-slot {
@@ -162,6 +214,101 @@
             position: absolute; bottom: 8px;
             color: #ffd700; font-weight: 800; background: rgba(0,0,0,0.85);
             padding: 3px 10px; border-radius: 8px; border: 1px solid rgba(255,215,0,0.3);
+        }
+
+        /* --- SELL ALL BUTTON --- */
+        #sell-trash-btn {
+            background: linear-gradient(45deg, #ff4444, #ff8800);
+            border: none; padding: 10px 20px; border-radius: 12px;
+            color: #fff; font-weight: 800; cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 0 18px rgba(255, 68, 68, 0.4);
+            font-family: 'Rajdhani', sans-serif; text-transform: uppercase;
+            font-size: 14px;
+            white-space: nowrap;
+        }
+        #sell-trash-btn:hover { transform: scale(1.05); box-shadow: 0 0 28px rgba(255,68,68,0.7); }
+        #sell-trash-btn:active { transform: scale(0.97); }
+
+        /* --- COLLECTION BOOK --- */
+        #collection-section {
+            margin-bottom: 60px;
+        }
+
+        #collection-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 12px;
+        }
+
+        .col-slot {
+            aspect-ratio: 1;
+            border-radius: 18px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            font-size: 42px;
+            border: 2px solid rgba(255,255,255,0.08);
+            position: relative;
+            transition: 0.3s;
+            background: rgba(255,255,255,0.03);
+            overflow: hidden;
+        }
+
+        .col-slot.unlocked {
+            border-color: rgba(255,255,255,0.25);
+            cursor: default;
+        }
+
+        .col-slot.unlocked:hover {
+            transform: scale(1.08);
+            z-index: 2;
+        }
+
+        .col-slot.locked {
+            filter: grayscale(1);
+            opacity: 0.22;
+            cursor: default;
+        }
+
+        .col-slot .col-label {
+            font-size: 10px;
+            position: absolute; bottom: 6px;
+            color: rgba(255,255,255,0.7); font-weight: 700;
+            background: rgba(0,0,0,0.7);
+            padding: 2px 7px; border-radius: 6px;
+            letter-spacing: 0.5px;
+            text-align: center;
+            max-width: 90%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .col-slot.locked .col-label {
+            display: none;
+        }
+
+        .col-slot .col-q {
+            font-size: 28px;
+            font-weight: 900;
+            color: rgba(255,255,255,0.4);
+        }
+
+        /* Auto-miner passive income ticker */
+        #miner-ticker {
+            display: none;
+            font-size: 13px;
+            color: #00ffa2;
+            font-weight: 700;
+            background: rgba(0,255,162,0.08);
+            border: 1px solid rgba(0,255,162,0.3);
+            padding: 4px 12px;
+            border-radius: 20px;
+            letter-spacing: 1px;
+            animation: tickerPulse 2s infinite;
+        }
+        @keyframes tickerPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
         }
 
         /* --- OPENING SCREEN --- */
@@ -251,14 +398,31 @@
     <div class="container">
         <div class="section-header">
             <h2 class="section-title">Case Market</h2>
-            <button id="mining-btn" onclick="mine()">Mine Diamonds (+10)</button>
+            <div id="mining-controls">
+                <button id="mining-btn" onclick="mine()">Mine Diamonds (+<span id="mine-power">10</span>)</button>
+                <button id="upgrade-btn" onclick="upgradePickaxe()">⛏️ Upgrade Pickaxe – 💎 <span id="upgrade-cost-display">1,000</span></button>
+                <button id="auto-miner-btn" onclick="hireAutoMiner()">🤖 Hire Auto-Miner – 💎 50,000</button>
+                <span id="miner-ticker">⚡ +<span id="miner-rate">0</span>/sec</span>
+            </div>
         </div>
         <div id="shop-grid"></div>
 
         <div class="section-header">
             <h2 class="section-title">Inventory</h2>
+            <button id="sell-trash-btn" onclick="sellAllTrash()">🗑️ Sell All Common &amp; Rare</button>
         </div>
         <div id="inventory-grid"></div>
+
+        <!-- COLLECTION BOOK -->
+        <div id="collection-section">
+            <div class="section-header">
+                <h2 class="section-title">📖 Collection Book</h2>
+                <span style="font-size:15px; color:rgba(255,255,255,0.45); font-weight:700; letter-spacing:2px;">
+                    <span id="col-count">0</span> / 19 DISCOVERED
+                </span>
+            </div>
+            <div id="collection-grid"></div>
+        </div>
     </div>
 </div>
 
@@ -279,36 +443,86 @@
 </div>
 
 <script>
-// --- FULL ITEM DATABASE ---
+// --- FULL ITEM DATABASE (19 items) ---
 const ITEMS = {
-    "Rusty Nail": {r:"Common", e:"🔩", p:35}, "Old Boot": {r:"Common", e:"🥾", p:50}, "Sharp Stone": {r:"Common", e:"🪨", p:65},
-    "Iron Sword": {r:"Rare", e:"⚔️", p:420}, "Steel Shield": {r:"Rare", e:"🛡️", p:480}, "Hunter Bow": {r:"Rare", e:"🏹", p:550},
-    "Magic Wand": {r:"Epic", e:"🪄", p:2800}, "Sea Trident": {r:"Epic", e:"🔱", p:3200}, "Heavy Axe": {r:"Epic", e:"🪓", p:3800},
-    "Royal Crown": {r:"Legendary", e:"👑", p:22000}, "Ancient Key": {r:"Legendary", e:"🔑", p:28000},
-    "Fire Phoenix": {r:"Mythic", e:"🐦‍🔥", p:280000}, "Void Dragon": {r:"Mythic", e:"🐉", p:550000},
-    "Singularity": {r:"Exotic", e:"🕳️", p:2200000}, "Nebula Core": {r:"Exotic", e:"🌀", p:3800000},
-    "Divine Wings": {r:"Divine", e:"🪽", p:15000000}, "Holy Grail": {r:"Divine", e:"⚱️", p:35000000},
-    "Infinity Eye": {r:"Zenith", e:"👁️", p:100000000}, "God Scepter": {r:"Zenith", e:"🔱", p:200000000}
+    "Rusty Nail":   {r:"Common",    e:"🔩",  p:35},
+    "Old Boot":     {r:"Common",    e:"🥾",  p:50},
+    "Sharp Stone":  {r:"Common",    e:"🪨",  p:65},
+    "Iron Sword":   {r:"Rare",      e:"⚔️",  p:420},
+    "Steel Shield": {r:"Rare",      e:"🛡️",  p:480},
+    "Hunter Bow":   {r:"Rare",      e:"🏹",  p:550},
+    "Magic Wand":   {r:"Epic",      e:"🪄",  p:2800},
+    "Sea Trident":  {r:"Epic",      e:"🔱",  p:3200},
+    "Heavy Axe":    {r:"Epic",      e:"🪓",  p:3800},
+    "Royal Crown":  {r:"Legendary", e:"👑",  p:22000},
+    "Ancient Key":  {r:"Legendary", e:"🔑",  p:28000},
+    "Fire Phoenix": {r:"Mythic",    e:"🐦‍🔥", p:280000},
+    "Void Dragon":  {r:"Mythic",    e:"🐉",  p:550000},
+    "Singularity":  {r:"Exotic",    e:"🕳️",  p:2200000},
+    "Nebula Core":  {r:"Exotic",    e:"🌀",  p:3800000},
+    "Divine Wings": {r:"Divine",    e:"🪽",  p:15000000},
+    "Holy Grail":   {r:"Divine",    e:"⚱️",  p:35000000},
+    "Infinity Eye": {r:"Zenith",    e:"👁️",  p:100000000},
+    "God Scepter":  {r:"Zenith",    e:"🔱",  p:200000000}
 };
 
-// --- CASES DATABASE (10 CASES, CORRECT PRICES) ---
+// --- CASES DATABASE (10 cases) ---
 const CASES = [
-    {id: "WOODEN", cost: 100, e: "📦", r: "Common", drops: ["Rusty Nail", "Old Boot", "Sharp Stone", "Iron Sword"]},
-    {id: "IRON", cost: 500, e: "📦", r: "Rare", drops: ["Iron Sword", "Steel Shield", "Hunter Bow"]},
-    {id: "STEEL", cost: 1000, e: "🧰", r: "Rare", drops: ["Steel Shield", "Hunter Bow", "Magic Wand"]},
-    {id: "EMERALD", cost: 5000, e: "🍱", r: "Epic", drops: ["Magic Wand", "Sea Trident", "Heavy Axe"]},
-    {id: "SILVER", cost: 10000, e: "🧰", r: "Epic", drops: ["Sea Trident", "Heavy Axe", "Royal Crown"]},
-    {id: "GOLDEN", cost: 25000, e: "💼", r: "Legendary", drops: ["Royal Crown", "Ancient Key", "Fire Phoenix"]},
-    {id: "VOID", cost: 50000, e: "💼", r: "Mythic", drops: ["Fire Phoenix", "Void Dragon", "Singularity"]},
-    {id: "COSMIC", cost: 100000, e: "💼", r: "Exotic", drops: ["Void Dragon", "Singularity", "Nebula Core"]},
-    {id: "DIVINE", cost: 150000, e: "🎁", r: "Divine", drops: ["Nebula Core", "Divine Wings", "Holy Grail"]},
-    {id: "OMEGA", cost: 250000, e: "🎁", r: "Zenith", drops: ["Holy Grail", "Infinity Eye", "God Scepter"]}
+    {id:"WOODEN",  cost:100,    e:"📦", r:"Common",    drops:["Rusty Nail","Old Boot","Sharp Stone","Iron Sword"]},
+    {id:"IRON",    cost:500,    e:"📦", r:"Rare",      drops:["Iron Sword","Steel Shield","Hunter Bow"]},
+    {id:"STEEL",   cost:1000,   e:"🧰", r:"Rare",      drops:["Steel Shield","Hunter Bow","Magic Wand"]},
+    {id:"EMERALD", cost:5000,   e:"🍱", r:"Epic",      drops:["Magic Wand","Sea Trident","Heavy Axe"]},
+    {id:"SILVER",  cost:10000,  e:"🧰", r:"Epic",      drops:["Sea Trident","Heavy Axe","Royal Crown"]},
+    {id:"GOLDEN",  cost:25000,  e:"💼", r:"Legendary", drops:["Royal Crown","Ancient Key","Fire Phoenix"]},
+    {id:"VOID",    cost:50000,  e:"💼", r:"Mythic",    drops:["Fire Phoenix","Void Dragon","Singularity"]},
+    {id:"COSMIC",  cost:100000, e:"💼", r:"Exotic",    drops:["Void Dragon","Singularity","Nebula Core"]},
+    {id:"DIVINE",  cost:150000, e:"🎁", r:"Divine",    drops:["Nebula Core","Divine Wings","Holy Grail"]},
+    {id:"OMEGA",   cost:250000, e:"🎁", r:"Zenith",    drops:["Holy Grail","Infinity Eye","God Scepter"]}
 ];
 
-let money = 1000;
-let inv = [];
-let pending = null;
+// -------------------------------------------------------
+// WEIGHTED RNG
+// -------------------------------------------------------
+const RARITY_WEIGHTS = {
+    "Common":    5000,
+    "Rare":      2000,
+    "Epic":       500,
+    "Legendary":  100,
+    "Mythic":      15,
+    "Exotic":       4,
+    "Divine":       1.2,
+    "Zenith":       0.3
+};
 
+function weightedDrop(dropNames) {
+    const pool = dropNames.map(name => ({
+        name,
+        weight: RARITY_WEIGHTS[ITEMS[name].r] || 1
+    }));
+    const total = pool.reduce((sum, e) => sum + e.weight, 0);
+    let roll = Math.random() * total;
+    for (const entry of pool) {
+        roll -= entry.weight;
+        if (roll <= 0) return entry.name;
+    }
+    return pool[pool.length - 1].name;
+}
+
+// -------------------------------------------------------
+// STATE
+// -------------------------------------------------------
+let money        = 1000;
+let inv          = [];
+let pending      = null;
+let minePower    = 10;
+let upgradeCost  = 1000;
+let discovered   = {};   // { "Item Name": true } — collection book unlocks
+let autoMiner    = false; // whether auto-miner is hired
+const AUTO_MINER_COST = 50000;
+
+// -------------------------------------------------------
+// INIT
+// -------------------------------------------------------
 function init() {
     const shop = document.getElementById("shop-grid");
     shop.innerHTML = "";
@@ -325,28 +539,82 @@ function init() {
     });
     load();
     update();
+    renderCollectionBook();
+    startAutoMinerTick();
 }
 
-function mine() { money += 10; update(); save(); }
+// -------------------------------------------------------
+// MINING + UPGRADES
+// -------------------------------------------------------
+function mine() {
+    money += minePower;
+    update();
+    save();
+}
 
+function upgradePickaxe() {
+    if (money < upgradeCost) return;
+    money       -= upgradeCost;
+    minePower   = Math.floor(minePower * 1.8 + 5);
+    upgradeCost = Math.floor(upgradeCost * 3.2);
+    update();
+    save();
+}
+
+// -------------------------------------------------------
+// FEATURE 3: AUTO-MINER
+// -------------------------------------------------------
+function hireAutoMiner() {
+    if (autoMiner) return;
+    if (money < AUTO_MINER_COST) return alert("Za mało diamentów!");
+    money -= AUTO_MINER_COST;
+    autoMiner = true;
+    update();
+    save();
+    startAutoMinerTick();
+}
+
+let autoMinerInterval = null;
+function startAutoMinerTick() {
+    if (!autoMiner) return;
+    if (autoMinerInterval) return; // already running
+    // Update rate display immediately
+    updateMinerTicker();
+    autoMinerInterval = setInterval(() => {
+        const income = Math.max(1, Math.floor(minePower * 0.01));
+        money += income;
+        update();
+        updateMinerTicker();
+        // Save every 10 ticks to avoid thrashing localStorage
+    }, 1000);
+}
+
+function updateMinerTicker() {
+    const rate = Math.max(1, Math.floor(minePower * 0.01));
+    document.getElementById("miner-rate").textContent = rate.toLocaleString();
+    document.getElementById("miner-ticker").style.display = autoMiner ? "inline-block" : "none";
+}
+
+// -------------------------------------------------------
+// BUY / OPEN
+// -------------------------------------------------------
 function buy(c) {
     if (money < c.cost) return alert("Za mało diamentów!");
-    
     money -= c.cost;
-    const pool = c.drops;
-    const dropName = pool[Math.floor(Math.random() * pool.length)];
+
+    const dropName = weightedDrop(c.drops);
     pending = { name: dropName, ...ITEMS[dropName], id: Date.now() + Math.random() };
-    
+
     document.getElementById("main-menu").style.display = "none";
     const screen = document.getElementById("opening-screen");
     screen.style.display = "flex";
-    
+
     const box = document.getElementById("opening-box");
     box.style.display = "block";
     box.textContent = c.e;
     box.className = c.r;
     box.onclick = startOpening;
-    
+
     document.getElementById("tap-info").style.display = "block";
     document.getElementById("spinner-wrap").style.display = "none";
     document.getElementById("reward-ui").style.display = "none";
@@ -358,7 +626,6 @@ function startOpening() {
     box.onclick = null;
     box.classList.add("shake");
     document.getElementById("tap-info").style.display = "none";
-    
     setTimeout(() => {
         box.classList.remove("shake");
         box.classList.add("explode");
@@ -378,21 +645,23 @@ function runSpinner() {
     rail.style.transition = "none";
     rail.style.transform = "translateX(0)";
 
-    const winIdx = 35;
+    const winIdx  = 35;
     const allKeys = Object.keys(ITEMS);
-    
+
     for (let i = 0; i < 60; i++) {
-        const data = (i === winIdx) ? pending : ITEMS[allKeys[Math.floor(Math.random() * allKeys.length)]];
+        const data = (i === winIdx)
+            ? pending
+            : ITEMS[allKeys[Math.floor(Math.random() * allKeys.length)]];
         const card = document.createElement("div");
         card.className = `spinner-item ${data.r}`;
         card.innerHTML = data.e;
         rail.appendChild(card);
     }
 
-    const itemW = 184; // 160 width + 24 margins
-    const viewW = document.getElementById("spinner-view").offsetWidth;
+    const itemW  = 184;
+    const viewW  = document.getElementById("spinner-view").offsetWidth;
     const offset = (winIdx * itemW) - (viewW / 2) + (itemW / 2);
-    
+
     setTimeout(() => {
         rail.style.transition = "transform 6s cubic-bezier(0.05, 0, 0.05, 1)";
         const microShift = (Math.random() * 80) - 40;
@@ -403,35 +672,135 @@ function runSpinner() {
         document.getElementById("reward-ui").style.display = "block";
         const txt = document.getElementById("reward-name");
         txt.textContent = pending.name;
-        txt.className = pending.r;
+        txt.className   = pending.r;
     }, 6600);
 }
 
 function collect() {
     inv.unshift(pending);
+
+    // FEATURE 1: unlock in collection book
+    if (!discovered[pending.name]) {
+        discovered[pending.name] = true;
+        renderCollectionBook();
+    }
+
     document.getElementById("opening-screen").style.display = "none";
-    
-    // Nareszcie naprawione! Zwykły block zamiast psującego wszystko flexa
-    const mainMenu = document.getElementById("main-menu");
-    mainMenu.style.display = "block";
-    
+    document.getElementById("main-menu").style.display = "block";
     renderInv();
     save();
 }
 
+// -------------------------------------------------------
+// SELL (with confirmation for rare items)
+// -------------------------------------------------------
+const RARE_RARITIES = new Set(["Epic","Legendary","Mythic","Exotic","Divine","Zenith"]);
+
 function sell(id) {
     const i = inv.findIndex(x => x.id === id);
-    if (i !== -1) {
-        money += Math.floor(inv[i].p * 0.75);
-        inv.splice(i, 1);
-        update();
-        renderInv();
-        save();
+    if (i === -1) return;
+    const item = inv[i];
+
+    if (RARE_RARITIES.has(item.r)) {
+        const confirmed = window.confirm(
+            `⚠️ Are you sure you want to sell this rare item?\n\n` +
+            `${item.e} ${item.name} [${item.r}]\n` +
+            `Sell value: 💎 ${Math.floor(item.p * 0.75).toLocaleString()}`
+        );
+        if (!confirmed) return;
     }
+
+    money += Math.floor(item.p * 0.75);
+    inv.splice(i, 1);
+    update();
+    renderInv();
+    save();
 }
 
+// -------------------------------------------------------
+// FEATURE 2: SELL ALL COMMON & RARE
+// -------------------------------------------------------
+function sellAllTrash() {
+    const trashRarities = new Set(["Common", "Rare"]);
+    const toSell = inv.filter(item => trashRarities.has(item.r));
+    if (toSell.length === 0) return alert("No Common or Rare items in inventory!");
+
+    const total = toSell.reduce((sum, item) => sum + Math.floor(item.p * 0.75), 0);
+    money += total;
+    inv = inv.filter(item => !trashRarities.has(item.r));
+
+    update();
+    renderInv();
+    save();
+
+    // Quick visual feedback
+    const btn = document.getElementById("sell-trash-btn");
+    const orig = btn.textContent;
+    btn.textContent = `✅ Sold ${toSell.length} items for 💎 ${total.toLocaleString()}`;
+    btn.style.background = "linear-gradient(45deg, #00c853, #00ffa2)";
+    btn.style.color = "#000";
+    setTimeout(() => {
+        btn.textContent = orig;
+        btn.style.background = "";
+        btn.style.color = "";
+    }, 2500);
+}
+
+// -------------------------------------------------------
+// FEATURE 1: COLLECTION BOOK RENDER
+// -------------------------------------------------------
+function renderCollectionBook() {
+    const grid = document.getElementById("collection-grid");
+    grid.innerHTML = "";
+
+    const allNames = Object.keys(ITEMS);
+    let unlockedCount = 0;
+
+    allNames.forEach(name => {
+        const itemData = ITEMS[name];
+        const isUnlocked = !!discovered[name];
+        if (isUnlocked) unlockedCount++;
+
+        const slot = document.createElement("div");
+        slot.className = `col-slot ${isUnlocked ? `unlocked ${itemData.r}` : "locked"}`;
+
+        if (isUnlocked) {
+            slot.innerHTML = `
+                ${itemData.e}
+                <span class="col-label">${name}</span>
+            `;
+            slot.title = `${name} [${itemData.r}] — 💎 ${itemData.p.toLocaleString()}`;
+        } else {
+            slot.innerHTML = `<span class="col-q">?</span>`;
+            slot.title = "???";
+        }
+
+        grid.appendChild(slot);
+    });
+
+    document.getElementById("col-count").textContent = unlockedCount;
+}
+
+// -------------------------------------------------------
+// UI HELPERS
+// -------------------------------------------------------
 function update() {
     document.getElementById("balance-display").textContent = "💎 " + money.toLocaleString();
+    document.getElementById("mine-power").textContent = minePower.toLocaleString();
+    document.getElementById("upgrade-cost-display").textContent = upgradeCost.toLocaleString();
+
+    const upgradeBtn = document.getElementById("upgrade-btn");
+    upgradeBtn.disabled = money < upgradeCost;
+
+    const minerBtn = document.getElementById("auto-miner-btn");
+    if (autoMiner) {
+        minerBtn.textContent = "🤖 Auto-Miner Active";
+        minerBtn.classList.add("active");
+        minerBtn.disabled = true;
+    } else {
+        minerBtn.disabled = money < AUTO_MINER_COST;
+    }
+    updateMinerTicker();
 }
 
 function renderInv() {
@@ -439,21 +808,53 @@ function renderInv() {
     grid.innerHTML = "";
     inv.forEach(item => {
         const div = document.createElement("div");
-        div.className = `item-slot ${item.r}`;
-        div.onclick = () => sell(item.id);
-        div.innerHTML = `${item.e} <span class="price-tag">💎 ${Math.floor(item.p * 0.75).toLocaleString()}</span>`;
+        div.className  = `item-slot ${item.r}`;
+        div.onclick    = () => sell(item.id);
+        div.innerHTML  = `${item.e}<span class="price-tag">💎 ${Math.floor(item.p * 0.75).toLocaleString()}</span>`;
         grid.appendChild(div);
     });
 }
 
-// Zmieniam klucz local storage żeby wyzerować ci buga i odświeżyć stan
-function save() { localStorage.setItem("box_sim_v11", JSON.stringify({m: money, i: inv})); }
+// -------------------------------------------------------
+// PERSISTENCE
+// -------------------------------------------------------
+function save() {
+    localStorage.setItem("box_sim_v13", JSON.stringify({
+        m:  money,
+        i:  inv,
+        mp: minePower,
+        uc: upgradeCost,
+        d:  discovered,
+        am: autoMiner
+    }));
+}
+
 function load() {
-    const data = localStorage.getItem("box_sim_v11");
+    const data = localStorage.getItem("box_sim_v13");
     if (data) {
-        const p = JSON.parse(data);
-        money = p.m; inv = p.i;
+        const p      = JSON.parse(data);
+        money        = p.m  ?? 1000;
+        inv          = p.i  ?? [];
+        minePower    = p.mp ?? 10;
+        upgradeCost  = p.uc ?? 1000;
+        discovered   = p.d  ?? {};
+        autoMiner    = p.am ?? false;
         renderInv();
+    }
+    // Migration: if old save exists (v12), import money/inv/mp/uc
+    else {
+        const old = localStorage.getItem("box_sim_v12");
+        if (old) {
+            const p    = JSON.parse(old);
+            money      = p.m  ?? 1000;
+            inv        = p.i  ?? [];
+            minePower  = p.mp ?? 10;
+            upgradeCost= p.uc ?? 1000;
+            // Reconstruct discovered from existing inventory
+            inv.forEach(item => { discovered[item.name] = true; });
+            renderInv();
+            save();
+        }
     }
 }
 
